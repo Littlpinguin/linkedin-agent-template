@@ -44,7 +44,10 @@ On first launch, the agent:
 4. asks a few questions to fine-tune (audience, goals, brand color, signature title, visual style, off-limits topics);
 5. wraps up: you can write your first post.
 
-> **How to get your LinkedIn posts:** *Settings → Data privacy → Get a copy of your data → tick "Posts" (Shares)*. Or use any spreadsheet with one row per post: a text column, and ideally likes / comments / shares / date columns (to spot what performs).
+> **How to get your LinkedIn posts:**
+> - **With Apify (easiest, and gets engagement data):** on [apify.com](https://apify.com), run a "LinkedIn Posts Scraper" Actor with your profile URL, then export the dataset as **Excel/CSV**. You get the post text plus likes / comments / shares, which is exactly what the agent needs to spot what performs. Only scrape your own profile and stay within LinkedIn's terms.
+> - **From LinkedIn directly:** *Settings → Data privacy → Get a copy of your data → tick "Posts" (Shares)*.
+> - **Manually:** any spreadsheet with one row per post works (a text column, and ideally likes / comments / shares / date columns).
 
 ## Requirements
 

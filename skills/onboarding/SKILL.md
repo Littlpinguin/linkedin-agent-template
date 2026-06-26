@@ -19,7 +19,7 @@ Demande à la personne, via l'outil de questions (ou en clair), **trois choses**
 2. **L'URL du site de son entreprise** (ou de son site perso / page de présentation).
 3. **3 à 4 visuels de posts qu'elle aime** : à déposer dans `assets/references-visuelles/`. Les siens, ou ceux d'autres personnes / marques dont le style lui plaît. C'est ce qui personnalise son style visuel et évite un rendu standard.
 
-Si elle n'a pas l'export LinkedIn, explique : *Préférences → Confidentialité des données → Obtenir une copie de vos données → cocher les publications*. Si elle n'a pas de visuels de référence sous la main, ce n'est pas bloquant : tu construiras un style neutre, à affiner plus tard. Adapte-toi à ce qu'elle fournit.
+Si elle n'a pas l'export LinkedIn, propose deux options : (1) un scraper « LinkedIn Posts Scraper » sur **Apify** (apify.com) lancé sur l'URL de son profil, puis export du dataset en **Excel/CSV** (récupère le texte + likes/commentaires/partages, idéal pour repérer ce qui marche ; rester sur son propre profil et dans les conditions de LinkedIn) ; (2) *Préférences → Confidentialité des données → Obtenir une copie de vos données → cocher les publications*. Si elle n'a pas de visuels de référence sous la main, ce n'est pas bloquant : tu construiras un style neutre, à affiner plus tard. Adapte-toi à ce qu'elle fournit.
 
 ## Étape 2 — Analyser les posts (le style d'écriture)
 
