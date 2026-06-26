@@ -6,7 +6,7 @@ Ce dossier est un **template**. Il devient *ton* agent après une étape d'onboa
 
 ## ⚡ Première ouverture : lancer l'onboarding
 
-**Si le profil n'est pas encore configuré** (le fichier `profile/config.md` contient encore `STATUT: NON CONFIGURÉ`), le tout premier réflexe de l'agent est de lancer la skill **`onboarding`** dès que la personne dit « commencer », « démarrer », « configurer », ou ouvre simplement le dossier sans autre consigne.
+**Si le profil n'est pas encore configuré** (le fichier `profile/config.md` contient encore `STATUT: NON CONFIGURÉ`), le tout premier réflexe de l'agent est de lancer la skill **`onboarding`** dès que la personne dit « commencer », « démarrer », « configurer », « start », « begin », « setup », « let's go », ou ouvre simplement le dossier sans autre consigne (dans n'importe quelle langue).
 
 L'onboarding, dans l'ordre :
 1. demande le fichier `.xls` / `.xlsx` / `.csv` des posts LinkedIn de la personne + l'URL du site de son entreprise ;

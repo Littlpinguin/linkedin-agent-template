@@ -1,94 +1,118 @@
 # linkedin-agent-template
 
-**Un template d'agent LinkedIn personnel pour Claude Code / Cowork.** Tu l'ouvres, tu dis « commencer », et il se calibre sur *ta* voix à partir de tes vrais posts. Ensuite, il écrit des posts qui te ressemblent et produit les visuels qui les accompagnent (images IA détournées, cartes, carrousels).
+**A personal LinkedIn agent template for Claude Code / Cowork.** You open it, type `start`, and it calibrates itself on *your* voice from your real posts. After that, it writes posts that sound like you and produces the visuals to go with them (AI-remixed images, cards, carousels).
 
-Pas un générateur de contenu générique : un agent qui apprend ton style d'écriture **et** ton style visuel, puis s'y tient.
+Not a generic content generator: an agent that learns your writing style **and** your visual taste, then sticks to them.
 
-## Utiliser ce template
+## Load it into Claude (copy-paste)
 
-1. **Crée ton dépôt** : clique sur **« Use this template »** en haut de cette page (ou `git clone`).
-2. **Ouvre le dossier** avec Claude Code (ou Cowork).
-3. **Dis simplement « commencer »**. L'agent lance son onboarding.
+**Option A — clone and open (recommended):**
 
-> Besoin de Claude Code ? Voir [claude.com/claude-code](https://claude.com/claude-code).
+```bash
+git clone https://github.com/Littlpinguin/linkedin-agent-template.git my-linkedin-agent
+cd my-linkedin-agent
+claude
+```
 
-## Ce que fait l'onboarding
+Then, inside Claude Code, just type:
 
-À la première ouverture, l'agent :
+```
+start
+```
 
-1. te demande **ton export de posts LinkedIn** (`.xls` / `.xlsx` / `.csv`), **l'URL du site de ton entreprise**, et **3-4 visuels de posts que tu aimes** (déposés dans `assets/references-visuelles/`) ;
-2. analyse tes posts (accroches, registres qui marchent, cadence, formats), ton site (entreprise, offre, cible, ton) et tes visuels de référence (pour en déduire ton style visuel) ;
-3. rédige ton identité éditoriale (`voice/identite-editoriale.md`), ton style visuel (`profile/style-visuel.md`) et remplit ta config (`profile/config.md`) ;
-4. te pose quelques questions pour affiner (cible, objectifs, couleur de marque, titre de signature, style visuel, sujets interdits) ;
-5. finalise : tu peux écrire ton premier post.
+The agent reads `CLAUDE.md`, sees it isn't configured yet, and launches its onboarding.
 
-> **Comment récupérer tes posts LinkedIn :** *Préférences → Confidentialité des données → Obtenir une copie de vos données → cocher les publications (« Shares »)*. À défaut, n'importe quel tableur avec une ligne par post convient : une colonne texte, et si possible likes / commentaires / partages / date.
+**Option B — start from the GitHub template:** click the green **Use this template → Create a new repository** button at the top of this page, then clone your new repo and run `claude` in it.
 
-## Prérequis
+**Option C — one-liner with the GitHub CLI:**
 
-- **Claude Code** ou **Cowork** (l'agent et ses skills tournent dedans).
-- **Python 3** avec :
-  - `pip install requests` (génération d'images) ;
-  - `pip install playwright && playwright install chromium` (cartes et carrousels).
-- **Clé Google AI Studio** pour la génération d'images : copie `.env.example` en `.env` et renseigne `GOOGLE_AI_API_KEY`.
-- **3-5 photos de ton visage** dans `assets/moi/` (pour l'« Identity Lock » des images générées).
+```bash
+gh repo create my-linkedin-agent --template Littlpinguin/linkedin-agent-template --private --clone && cd my-linkedin-agent && claude
+```
 
-> La génération IA (API Google) et les screenshots (Chromium) tournent en local, pas en environnement réseau restreint.
+> Using **Cowork** instead of the CLI? Open the folder in Cowork and type `start` in the chat. No GitHub account needed: you can also just download the ZIP from the green **Code** button.
+>
+> Don't have Claude Code yet? See [claude.com/claude-code](https://claude.com/claude-code).
 
-## La chaîne de production (après configuration)
+## What the onboarding does
 
-1. **Écrire** : `my-viral-post` propose des angles dans ta voix, assemble le post, et indique le format visuel à associer.
-2. **Illustrer**, selon le registre :
-   - opinion / contre-pied → `image-linkedin` (image détournée avec ton visage, meme) ;
-   - expert / pédagogique → `carte-linkedin` (infographie) ou `carrousel-linkedin` ;
-   - retex / outils → carte + capture.
-3. **Composer puis exporter** : une image brute (`outputs/images/`) se recompose en post fini via `carte-linkedin`, puis s'exporte (PNG 1080×1350 ou PDF).
-4. **Vérifier et publier** : chaque skill lit son rendu avant livraison et journalise dans `outputs/`.
+On first launch, the agent:
+
+1. asks for **your LinkedIn posts export** (`.xls` / `.xlsx` / `.csv`), **your company website URL**, and **3-4 post visuals you like** (drop them in `assets/references-visuelles/`);
+2. analyzes your posts (hooks, registers that work, cadence, formats), your site (company, offer, audience, tone) and your reference visuals (to infer your visual style);
+3. writes your editorial identity (`voice/identite-editoriale.md`), your visual style (`profile/style-visuel.md`) and fills in your config (`profile/config.md`);
+4. asks a few questions to fine-tune (audience, goals, brand color, signature title, visual style, off-limits topics);
+5. wraps up: you can write your first post.
+
+> **How to get your LinkedIn posts:** *Settings → Data privacy → Get a copy of your data → tick "Posts" (Shares)*. Or use any spreadsheet with one row per post: a text column, and ideally likes / comments / shares / date columns (to spot what performs).
+
+## Requirements
+
+- **Claude Code** or **Cowork** (the agent and its skills run inside it).
+- **Python 3** with:
+  - `pip install requests` (image generation);
+  - `pip install playwright && playwright install chromium` (cards and carousels).
+- **A Google AI Studio key** for image generation: copy `.env.example` to `.env` and set `GOOGLE_AI_API_KEY`.
+- **3-5 photos of your face** in `assets/moi/` (for the "Identity Lock" of generated images).
+
+> AI generation (Google API) and screenshots (Chromium) run locally, not in a restricted-network environment.
+
+## The production chain (after setup)
+
+1. **Write**: `my-viral-post` proposes angles in your voice, assembles the post, and tells you which visual format to attach.
+2. **Illustrate**, by register:
+   - opinion / contrarian → `image-linkedin` (remixed image with your face, meme);
+   - expert / educational → `carte-linkedin` (infographic) or `carrousel-linkedin`;
+   - field report / tools → card + screenshot.
+3. **Compose then export**: a raw image (`outputs/images/`) is recomposed into a finished post via `carte-linkedin`, then exported (PNG 1080×1350 or PDF).
+4. **Check and publish**: every skill reviews its render before delivery and logs to `outputs/`.
 
 ## Structure
 
 ```
 linkedin-agent-template/
-├── CLAUDE.md                ← l'orchestrateur (règles + déclencheur d'onboarding)
+├── CLAUDE.md                ← the orchestrator (rules + onboarding trigger)
 ├── skills/
-│   ├── onboarding/              ← calibre l'agent sur ta voix + ton style (première fois)
-│   ├── my-viral-post/           ← rédige le post (texte)
-│   ├── image-linkedin/          ← image IA détournée + meme (Nano Banana Pro)
-│   ├── carte-linkedin/          ← carte / infographie single-image (HTML→PNG)
-│   └── carrousel-linkedin/      ← carrousel PDF multipage (source des tokens design)
+│   ├── onboarding/              ← calibrates the agent on your voice + style (first run)
+│   ├── my-viral-post/           ← writes the post (text)
+│   ├── image-linkedin/          ← AI-remixed image + meme (Nano Banana Pro)
+│   ├── carte-linkedin/          ← single-image card / infographic (HTML→PNG)
+│   └── carrousel-linkedin/      ← multipage PDF carousel (source of design tokens)
 ├── voice/
-│   ├── identite-editoriale.md   ← TA voix (rédigée à l'onboarding)
-│   └── anti-ai-writing-style.md ← règles anti-IA universelles
+│   ├── identite-editoriale.md   ← YOUR voice (written during onboarding)
+│   └── anti-ai-writing-style.md ← universal anti-AI writing rules
 ├── profile/
-│   ├── config.md            ← tes variables (nom, entreprise, couleur, cible, objectifs)
-│   └── style-visuel.md      ← TON style visuel (déduit des visuels que tu aimes)
+│   ├── config.md            ← your variables (name, company, color, audience, goals)
+│   └── style-visuel.md      ← YOUR visual style (inferred from visuals you like)
 ├── assets/
-│   ├── moi/                 ← tes photos de visage + avatar de signature
-│   ├── marque/             ← ton kit (logo, fonts, icônes) — optionnel
-│   ├── references-visuelles/ ← 3-4 visuels que tu aimes (base de ton style)
-│   ├── visuels-generes/    ← images IA brutes (réf de TON)
-│   └── visuels-posts/      ← posts finis composés (réf de COMPOSITION)
+│   ├── moi/                 ← your face photos + signature avatar
+│   ├── marque/             ← your kit (logo, fonts, icons) — optional
+│   ├── references-visuelles/ ← 3-4 visuals you like (basis of your style)
+│   ├── visuels-generes/    ← raw AI images (TONE reference)
+│   └── visuels-posts/      ← finished composed posts (COMPOSITION reference)
 ├── scripts/                 ← gen-image.py, screenshot.py, export-carousel-pdf.py, journal.py
 ├── templates/               ← carousel-linkedin-base.html
-├── docs/                    ← note de conception du template
-└── .env.example             ← clé Gemini pour la génération d'images
+├── docs/                    ← template design notes
+└── .env.example             ← Gemini key for image generation
 ```
 
-## Ce qui rend ce template différent
+> The agent's doctrine is written in French (it grew out of a French personal-branding agent), but it learns its voice from *your* posts, so it adapts to your language. The trigger word works in any language (`start`, `begin`, `commencer`, `setup`…).
 
-- **Personal branding pur** : ton visage dans les images. Pas de marque secondaire ni de personnage compagnon.
-- **Pas de cadre imposé** : le template ne force ni liseré, ni titre haut, ni signature. Ton style visuel est déduit des 3-4 visuels que tu déposes, pour que tes posts te ressemblent et pas au gabarit de tout le monde.
-- **Anti « AI slop »** : `voice/anti-ai-writing-style.md` proscrit le jargon de hype, les parallélismes négatifs (« ce n'est pas X, c'est Y »), le tiret cadratin, et impose une voix concrète et chiffrée.
-- **Un seul accent** : ta couleur de marque, choisie à l'onboarding, réglable dans `profile/config.md`.
-- **Polices** : par défaut, polices système (rend sans rien installer). Dépose tes `.woff2` dans `assets/marque/fonts/` pour un rendu pixel-perfect.
-- **Autonome** : tout reste sous le dossier. Outputs et journal dans `outputs/` (gitignored).
+## What makes this template different
 
-## Sécurité
+- **Pure personal branding**: your face in the images. No secondary brand, no mascot.
+- **No imposed frame**: the template forces neither a border, nor a top title, nor a signature. Your visual style is inferred from the 3-4 visuals you drop in, so your posts look like *you*, not like everyone else's template.
+- **Anti "AI slop"**: `voice/anti-ai-writing-style.md` bans hype jargon, negative parallelisms ("it's not X, it's Y"), em dashes, and enforces a concrete, number-driven voice.
+- **A single accent**: your brand color, chosen at onboarding, editable in `profile/config.md`.
+- **Fonts**: system fonts by default (renders with zero install). Drop your `.woff2` files in `assets/marque/fonts/` for pixel-perfect output.
+- **Self-contained**: everything stays inside the folder. Outputs and the log live in `outputs/` (gitignored).
 
-- Ne committe jamais `.env` (couvert par `.gitignore`).
-- Seul ton visage (avec ton consentement) dans `assets/moi/`. Aucune autre personne réelle sans accord.
-- Logos tiers : ne jamais les fabriquer par IA ni les scraper. Demander les fichiers officiels.
+## Security
 
-## Licence
+- Never commit `.env` (covered by `.gitignore`).
+- Only your own face (with your consent) in `assets/moi/`. No other real person without permission.
+- Third-party logos: never fabricate them with AI or scrape them. Ask for the official files.
 
-[MIT](LICENSE). Réutilise, modifie, redistribue librement.
+## License
+
+[MIT](LICENSE). Reuse, modify, redistribute freely.
