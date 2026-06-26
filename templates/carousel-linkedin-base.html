@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Carrousel LinkedIn</title>
+
+<!--
+  ============================================================
+  CARROUSEL LINKEDIN — TEMPLATE DE DÉPART
+  ============================================================
+  Format : 1080×1350 portrait (PDF document LinkedIn)
+  Skill  : carrousel-linkedin
+  Export : python3 scripts/export-carousel-pdf.py <this.html> <out.pdf>
+
+  RÈGLES NON NÉGOCIABLES :
+  - Tailles typo : utiliser EXCLUSIVEMENT les classes .h-xxl/.h-xl/.h-l/.h-m
+    /.h-sub/.lede/.body-l/.body-m/.caption/.eyebrow/.footer (seuil absolu 22px)
+  - Espacement : utiliser EXCLUSIVEMENT les tokens --sp-3xs à --sp-2xl
+  - Palette : un seul accent (--accent, depuis profile/config.md)
+  - Aucun point final sur les titres (.h-*, .cta-title)
+  - Aucun emoji Unicode — générer une icône via image-linkedin → assets/marque/icons/
+  - Pas de folio « 01 / 10 » (LinkedIn affiche son propre indicateur)
+  - Personnage / visage sur fond dark : éviter (traits fins illisibles) → aplat ou icône
+
+  LES 3 SLIDES CI-DESSOUS SONT UN POINT DE DÉPART NEUTRE, PAS UN GABARIT IMPOSÉ.
+  Adapte la mise en page (cadre, placement des titres, signature) au style de la personne
+  défini dans profile/style-visuel.md. Le signoff de fin est OPTIONNEL : ne le garde que si
+  son style porte une signature.
+
+  À PERSONNALISER (valeurs lues dans profile/config.md + profile/style-visuel.md) :
+  - --accent / --accent-soft : ta couleur de marque
+  - --brand-display / --brand-body : tes polices (voir bloc @font-face ci-dessous)
+  - le footer (ton site) et le signoff (ta photo, ton nom, ton titre) — selon ton style
+-->
+
+<style>
+  /* ====== POLICES DE MARQUE (optionnel) ======
+     Par défaut, le template utilise des polices système (rend sans rien installer).
+     Pour un rendu pixel-perfect à ta marque, dépose tes .woff2 dans
+     assets/marque/fonts/, décommente, ajuste les noms, et renseigne profile/config.md.
+
+  @font-face { font-family:'Ma Display'; src:url('../assets/marque/fonts/display.woff2') format('woff2'); font-weight:700; font-display:block; }
+  @font-face { font-family:'Ma Display'; src:url('../assets/marque/fonts/display-800.woff2') format('woff2'); font-weight:800; font-display:block; }
+  @font-face { font-family:'Mon Corps';  src:url('../assets/marque/fonts/body.woff2')    format('woff2'); font-weight:400; font-display:block; }
+     puis dans :root → --brand-display:'Ma Display'; --brand-body:'Mon Corps';
+  */
+
+  :root {
+    /* ====== ACCENT DE MARQUE — un seul accent, remplacé à l'onboarding ====== */
+    --accent:      #2D6CDF;   /* TA couleur (profile/config.md). Sert aussi de liseré. */
+    --accent-soft: #DCE6FB;   /* version claire de l'accent, pour les fonds */
+
+    /* ====== Base éditoriale neutre ====== */
+    --ink:      #1A1A2E;      /* texte / titres sombres */
+    --ink-soft: #4A4A5E;      /* texte secondaire */
+    --paper:    #FDFCFA;      /* fond clair */
+    --paper-2:  #F5F0EA;      /* fond clair alt */
+    --paper-3:  #EDE5D9;      /* fond clair alt 2 */
+    --dark:     #1A1A2E;      /* fond sombre (slides manifeste / CTA) */
+
+    /* ====== Polices : marque si définie, sinon système ====== */
+    --brand-display: ;        /* renseigné si tu ajoutes une police de marque */
+    --brand-body: ;
+    --font-display: var(--brand-display, 'Helvetica Neue', 'Arial Narrow', 'Segoe UI', system-ui, sans-serif);
+    --font-body:    var(--brand-body, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif);
+
+    /* ====== Échelle d'espacement — seuil minimum --sp-md (48px) entre blocs voisins ====== */
+    --sp-3xs:   8px;
+    --sp-2xs:  16px;
+    --sp-xs:   24px;
+    --sp-sm:   32px;
+    --sp-md:   48px;
+    --sp-lg:   64px;
+    --sp-xl:   80px;
+    --sp-2xl: 100px;
+  }
+
+  @page { size: 1080px 1350px; margin: 0; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #ddd; font-family: var(--font-body); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+  /* ============ STRUCTURE PAGE ============ */
+  .page {
+    width: 1080px; height: 1350px;
+    padding: 90px 80px 110px;
+    position: relative;
+    overflow: hidden;
+    background: white;
+    page-break-after: always;
+    page-break-inside: avoid;
+    break-after: page;
+    break-inside: avoid;
+    display: flex; flex-direction: column;
+    margin: 24px auto;
+    box-shadow: 0 12px 40px rgba(26,26,46,.08);
+  }
+  .page:last-child { page-break-after: auto; }
+  @media print {
+    html, body { background: white; }
+    .page { margin: 0; box-shadow: none; }
+  }
+
+  /* ============ ÉCHELLE TYPOGRAPHIQUE — SEUIL 22px ============ */
+  /* Note : ces tailles sont calibrées pour une police display condensée/dense.
+     Sans police de marque, raccourcis les titres pour éviter les débordements. */
+  .h-xxl { font-family: var(--font-display); font-weight: 800; font-size: 168px; line-height: 0.92; letter-spacing: -0.025em; color: var(--ink); }
+  .h-xl  { font-family: var(--font-display); font-weight: 800; font-size: 124px; line-height: 0.94; letter-spacing: -0.022em; color: var(--ink); }
+  .h-l   { font-family: var(--font-display); font-weight: 700; font-size:  88px; line-height: 0.98; letter-spacing: -0.018em; color: var(--ink); }
+  .h-m   { font-family: var(--font-display); font-weight: 700; font-size:  64px; line-height: 1.02; letter-spacing: -0.012em; color: var(--ink); }
+  .h-sub { font-family: var(--font-display); font-weight: 700; font-size:  56px; line-height: 1.06; letter-spacing: -0.010em; color: var(--ink); }
+  .lede    { font-family: var(--font-body); font-size: 36px; line-height: 1.36; color: var(--ink-soft); font-weight: 400; }
+  .body-l  { font-family: var(--font-body); font-size: 30px; line-height: 1.42; color: var(--ink-soft); }
+  .body-m  { font-family: var(--font-body); font-size: 28px; line-height: 1.42; color: var(--ink-soft); }
+  .caption { font-family: var(--font-body); font-size: 24px; line-height: 1.35; color: var(--ink-soft); }
+
+  .eyebrow { font-family: var(--font-body); font-size: 24px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; color: var(--accent); line-height: 1.20; }
+  .eyebrow.on-dark { color: var(--accent-soft); }
+
+  /* ============ FOOTER ============ */
+  /* Ton site seul (ex. « tonsite.com »). Pas de folio. */
+  .footer {
+    position: absolute;
+    bottom: 48px; left: 80px; right: 80px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-body);
+    font-size: 22px;
+    color: var(--ink-soft);
+    letter-spacing: 0.01em;
+  }
+  .footer.on-dark { color: var(--accent-soft); }
+  .folio { display: none; }  /* Folios LinkedIn natifs → masquer */
+
+  /* ============ ACCENTS ============ */
+  .accent { color: var(--accent); }
+  .hl     { color: var(--accent); }
+
+  /* ============ STYLES SPÉCIFIQUES SLIDES (à compléter) ============ */
+  /* Toujours en respectant l'échelle typo + spacing scale. */
+
+  /* Slide 1 — Cover hook */
+  .s1 { background: var(--paper-2); justify-content: center; padding: 90px 80px 160px; }
+
+  /* Slide 2 — Manifeste fond dark */
+  .s2 { background: var(--dark); color: var(--paper); justify-content: center; align-items: center; text-align: center; }
+  .s2 .h-xxl { color: var(--paper); }
+  .s2 .lede  { color: var(--accent-soft); max-width: 720px; margin-top: var(--sp-xl); }
+  .s2 .blob-bg { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: var(--accent); opacity: .22; top: -120px; left: -160px; filter: blur(60px); }
+
+  /* Slide CTA */
+  .s-cta { background: var(--dark); color: var(--paper); justify-content: center; }
+  .s-cta .cta-title { font-family: var(--font-display); font-weight: 800; font-size: 86px; line-height: 0.98; color: var(--paper); max-width: 920px; }
+  .s-cta .cta-actions { margin-top: var(--sp-lg); display: flex; flex-direction: column; gap: var(--sp-sm); }
+  .s-cta .action {
+    display: flex; align-items: center; gap: var(--sp-xs);
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 22.4px;
+    padding: 28px 32px;
+  }
+  .s-cta .action .ico {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .s-cta .action .ico img { width: 70%; height: 70%; object-fit: contain; }
+  .s-cta .action .txt { font-family: var(--font-display); font-weight: 700; font-size: 34px; color: var(--paper); line-height: 1.2; }
+  .s-cta .action .txt span { display: block; font-family: var(--font-body); font-weight: 400; font-size: 22px; color: var(--accent-soft); margin-top: var(--sp-3xs); line-height: 1.35; }
+
+  /* Signoff avec photo profil */
+  .signoff {
+    position: absolute; bottom: 110px; left: 80px; right: 80px;
+    display: flex; align-items: center; gap: var(--sp-sm);
+    font-family: var(--font-body);
+    font-size: 22px;
+    color: var(--accent-soft);
+    line-height: 1.35;
+  }
+  .signoff .avatar {
+    width: 112px; height: 112px; border-radius: 50%;
+    object-fit: cover; border: 2px solid rgba(255,255,255,.25); flex-shrink: 0;
+  }
+  .signoff .txt { text-align: left; }
+  .signoff strong { display: block; font-family: var(--font-display); font-weight: 700; font-size: 36px; color: var(--paper); margin-bottom: var(--sp-3xs); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     SLIDE 1 — Cover hook
+     Pattern : grand titre + (icône générée, pas Unicode) + lede + flèche →
+     Carrousel se lit en swipe horizontal → utiliser → pas ↓
+============================================================ -->
+<section class="page s1">
+  <div>
+    <div class="h-xxl">Titre du hook<br>(2 lignes)</div>
+    <!-- Icône générée — JAMAIS un emoji Unicode -->
+    <!-- <img src="../assets/marque/icons/<icon>.png" style="width: 140px; margin-top: var(--sp-sm);"> -->
+  </div>
+  <p class="lede" style="margin-top: var(--sp-xl); max-width: 760px;">
+    Sous-texte explicatif court qui pose le contexte.
+  </p>
+  <div style="font-family: var(--font-display); font-weight: 800; font-size: 140px; line-height: 1; margin-top: var(--sp-md); color: var(--accent);">&rarr;</div>
+  <div class="footer">
+    <span class="baseline">tonsite.com</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 2 — Manifeste fond dark
+     Pattern : pas de visage/personnage (les traits se perdent sur dark).
+     Juste typographie centrée verticalement.
+============================================================ -->
+<section class="page s2">
+  <div class="blob-bg"></div>
+  <div style="text-align:center;">
+    <div class="h-xxl">Affirmation forte</div>
+    <p class="lede">Phrase explicative qui développe l'idée.</p>
+  </div>
+  <div class="footer on-dark">
+    <span class="baseline">tonsite.com</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE FINALE — CTA + signoff
+     Pattern : titre CTA + 2 actions max (icône + texte + sous-texte)
+     + signoff photo profil aligné à gauche en bas.
+============================================================ -->
+<section class="page s-cta">
+  <div class="cta-title">Question CTA&nbsp;?</div>
+
+  <div class="cta-actions">
+    <div class="action">
+      <div class="ico">
+        <!-- icône à générer via image-linkedin → ../assets/marque/icons/<icone>.png -->
+      </div>
+      <div class="txt">
+        Action 1 sans point
+        <span>Sous-texte explicatif avec ponctuation normale.</span>
+      </div>
+    </div>
+    <div class="action">
+      <div class="ico">
+        <!-- icône à générer via image-linkedin → ../assets/marque/icons/<icone>.png -->
+      </div>
+      <div class="txt">
+        Action 2 sans point
+        <span>Sous-texte explicatif.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signoff OPTIONNEL : à garder seulement si profile/style-visuel.md prévoit une
+       signature. Sinon, supprime ce bloc. Photo + nom + titre depuis profile/config.md. -->
+  <div class="signoff">
+    <img class="avatar" src="../assets/moi/avatar-signature.jpg" alt="">
+    <div class="txt">
+      <strong>Prénom Nom</strong>
+      Titre de signature
+    </div>
+  </div>
+
+  <div class="footer on-dark">
+    <span class="baseline">tonsite.com</span>
+  </div>
+</section>
+
+</body>
+</html>

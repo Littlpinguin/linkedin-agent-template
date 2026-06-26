@@ -1,0 +1,13 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Icon?
+
+# Sorties générées (images, carrousels) — régénérables
+outputs/
