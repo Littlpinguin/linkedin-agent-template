@@ -36,7 +36,7 @@ Pillow ne charge pas les fonts woff2. Toujours composer en **HTML/CSS** puis scr
 ## Format & échelle
 
 - **1080×1350** (4:5 portrait) par défaut. **1:1 carré** pour les formats comparaison (« VS »).
-- Échelle typo et tokens d'espacement **stricts** de `carrousel-linkedin`. **Plancher absolu 22 px.**
+- Échelle typo et tokens d'espacement **stricts** de `carrousel-linkedin` (mobile-safe : corps ≥ 44 px, légende ≥ 32 px). Voir `voice/compositions-carrousel.md`.
 - **Un seul accent** par carte : la couleur de `profile/config.md`. Pas de salade de couleurs.
 
 ## Boîte à outils de composition (options, pas obligations)
@@ -61,7 +61,7 @@ Pillow ne charge pas les fonts woff2. Toujours composer en **HTML/CSS** puis scr
 
 ## Boucle de vérification (lire le PNG avant de livrer)
 
-Cohérent avec `profile/style-visuel.md`, titre lisible, tailles sous 22 px corrigées, pas de collision, accent unique. Itérer en éditant le **HTML/script**, pas en repartant de zéro.
+Cohérent avec `profile/style-visuel.md`, titre lisible, **corps sous 44 px ou légende sous 32 px corrigés** (lisibilité mobile), pas de collision, accent unique. Itérer en éditant le **HTML/script**, pas en repartant de zéro.
 
 ## Disclosure IA
 

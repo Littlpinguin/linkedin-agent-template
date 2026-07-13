@@ -7,7 +7,7 @@ description: Génère un carrousel LinkedIn (PDF multipage 1080×1350 portrait),
 
 Tu construis des carrousels LinkedIn en PDF multipage 1080×1350 portrait. Objectif assumé : **être assez utile pour qu'on l'enregistre** (posts experts, méthodes, exemples tirés d'articles de blog). Cette skill est la **source des tokens de design** (typo, espacement, palette, fonts) pour `carte-linkedin`.
 
-Avant de composer, lis `profile/style-visuel.md` (le style de la personne : cadre, titres, signature ou non), `profile/config.md` (couleur d'accent, fonts, titre de signature, site) et `voice/identite-editoriale.md` (ton, registres).
+Avant de composer, lis `profile/style-visuel.md` (le style de la personne : cadre, titres, signature ou non), `profile/config.md` (couleur d'accent, fonts, titre de signature, site), `voice/identite-editoriale.md` (ton, registres) et `voice/compositions-carrousel.md` (la grille, l'échelle mobile-safe et le répertoire des 8 compositions — source de vérité de mise en page).
 
 ## Doctrine de marque (selon le style de la personne)
 
@@ -29,25 +29,28 @@ Avant de composer, lis `profile/style-visuel.md` (le style de la personne : cadr
 ## Format LinkedIn
 
 - **1080×1350 px** (4:5 portrait), optimum feed mobile (~80% du trafic).
+- **Marges : 80 px latéral · 120 px haut · 160 px bas** → bloc de contenu utile **920 × 1070 px** centré. Le bas à 160 px garde le contenu vital hors de la zone où LinkedIn superpose son compteur de slides et les réactions. Rien de vital hors de ce bloc.
 - PDF document multipage, max 100 MB, max 20 pages.
-- Min lisible : **22 px source**. En dessous = erreur.
+- **Plancher lisible mobile : 32 px** pour tout texte de contenu (26 px uniquement pour le numéro de slide / la mention légale). En dessous = illisible au feed.
 
-## Échelle typographique STRICTE (aucune taille hors barème)
+## Échelle typographique MOBILE-SAFE (aucune taille hors barème)
 
-| Rôle | Taille | Line-height | Usage |
-|---|---|---|---|
-| `.h-xxl` | 168px | 0.92 | Hook cover (1 slide max) |
-| `.h-xl` | 124px | 0.94 | Titres impact, chiffres clés |
-| `.h-l` | 88px | 0.98 | Titres standard |
-| `.h-m` | 64px | 1.02 | Sous-titres |
-| `.h-sub` | 56px | 1.06 | Valeurs, headers tertiaires |
-| `.lede` | 36px | 1.36 | Premier paragraphe |
-| `.body-l` | 30px | 1.42 | Texte principal |
-| `.body-m` | 28px | 1.42 | Texte secondaire |
-| `.caption` | 24px | 1.35 | Légendes |
-| `.footer` | 22px | : | Baseline footer (plancher absolu) |
+Un canvas de 1080 px est réduit à ~390 px sur un téléphone : **taille perçue ≈ taille canvas × 0,36**. Un corps à 30 px n'y fait que ~11 px, illisible dans le feed. D'où ces planchers (calibrés pour la lecture mobile réelle, pas pour l'écran d'édition) :
 
-> Ces tailles sont calibrées pour une police display dense / condensée. Avec les polices système par défaut, raccourcis les titres pour éviter les débordements, ou ajoute ta police de marque (voir Polices).
+| Rôle | Classe | Taille source | Line-height | ≈ écran mobile |
+|---|---|---|---|---|
+| Hook hero (couverture, 1 slide max) | `.h-xxl` | **130–180px** | 0.95 | 47–65px |
+| Chiffre-ancre (stat géante) | `.h-num` ¹ | **240–330px** | 0.90 | — |
+| Titre de slide | `.h-l` | **88–110px** | 1.0 | 32–40px |
+| Sous-titre | `.h-m` | **60–72px** | 1.08 | 22–26px |
+| Corps / puce | `.body-l` | **≥ 48px** (48–56) | 1.42 | 17–20px |
+| Légende / source | `.caption` | **≥ 32px** (32–36) | 1.35 | 12–13px |
+| Numéro de slide / mention légale | `.footer` | 26–30px | 1.2 | ~10px |
+
+¹ `.h-num` : plus grand que toute classe standard — à définir en inline ou via une classe dédiée.
+
+> Paliers intermédiaires (`.h-sub`, `.lede`, `.body-m`) : tolérés, mais **jamais sous le plancher de leur rôle** — un corps reste ≥ 48px, une légende ≥ 32px. L'ancienne échelle (corps ~28-30px, footer 22px) est trop petite pour le feed mobile : ne plus l'utiliser.
+> Ces tailles supposent la police display du profil pour les titres. Sans police de marque (polices système), raccourcis les titres pour éviter les débordements, ou ajoute ta police (voir Polices).
 
 ## Échelle d'espacement STRICTE
 
@@ -82,12 +85,12 @@ Par défaut, polices système (le template rend sans rien installer). Pour un re
 ## Règles UX LinkedIn (anti-patterns à retirer systématiquement)
 
 1. Pas de folio « 01 / 10 » (LinkedIn affiche sa propre progression).
-2. Pas d'eyebrow « Acte 1 / Acte 2 » : le titre parle de lui-même.
+2. **Tic IA n°1 — banni : aucun label en CAPITALES espacées au-dessus du titre** (le « kicker » / eyebrow répété, type « ACTE 1 », « MÉTHODE », « ÉTAPE »). Plier l'info dans le titre lui-même. La classe `.eyebrow` du template ne sert qu'à un usage exceptionnel, jamais en label répété au-dessus de chaque titre.
 3. **Pas de point final** sur les titres et CTA courts. Les paragraphes longs gardent leur ponctuation.
 4. **Pas de tiret cadratin (—)** : virgule, deux-points, ou reformuler.
 5. **Pas d'emoji Unicode** : utiliser une icône générée (`assets/marque/icons/`, via `image-linkedin`).
 6. Pas de gradient sur titres standards (réservé au hook `.h-xxl`).
-7. Déclarer `font-size` explicitement à chaque niveau (éviter les héritages sous 22 px).
+7. Déclarer `font-size` explicitement à chaque niveau (éviter tout héritage sous le plancher mobile : 32 px pour le contenu, 26 px pour le numéro / la mention légale).
 
 ## Signoff (seulement si le style en porte un)
 
@@ -105,6 +108,12 @@ Par défaut, polices système (le template rend sans rien installer). Pour un re
 
 Avatar rond 112×112 px, bordure 2px. Nom en `.h-m`, titre en `.body-m`. (Valeurs à reprendre de `profile/config.md`.)
 
+## Compositions & alternance (répertoire)
+
+Le répertoire complet des **8 compositions nommées** (Couverture cadrée, Champ 7/5 asymétrique, Ancre-nombre, Étapes numérotées, Comparaison 2 colonnes, Citation pleine, Hero illustration, Signoff/CTA), la grille de référence et le rythme d'une séquence type vivent dans `voice/compositions-carrousel.md`. **Le lire avant de figer le plan de slides.**
+
+Règle de fer : **jamais deux slides voisines au même squelette.** On fait tourner les compositions d'une slide à l'autre — c'est cette alternance, plus qu'aucun effet, qui donne le rendu « designé par un senior ». Les patterns ci-dessous sont un sous-ensemble rapide de ce répertoire.
+
 ## Patterns de slides réutilisables
 
 - **Hook** : fond clair, `.h-xxl`, flèche `→` (swipe horizontal), pas de point final.
@@ -120,7 +129,7 @@ Chaque carrousel : brief + HTML source + PDF export, tous dans `outputs/carrouse
 
 ## Vérification (lire le PDF avant de livrer)
 
-Collisions, texte tronqué, tailles sous 22 px, accent unique respecté, signoff présent, pas d'emoji Unicode ni de tiret cadratin. Itérer en éditant le HTML, pas en repartant de zéro.
+Collisions, texte tronqué, tailles sous le plancher mobile (32 px contenu / 26 px numéro-mention), corps ≥ 48 px, marges 80/120/160 respectées, accent unique, zéro eyebrow en capitales, signoff présent (si le style en porte un), pas d'emoji Unicode ni de tiret cadratin. Itérer en éditant le HTML, pas en repartant de zéro.
 
 ## Skills liées
 
