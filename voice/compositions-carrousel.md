@@ -59,18 +59,19 @@ Le principe est universel ; les valeurs se lisent dans le profil. Sur le fond ch
 - **Longueur de ligne 30–50 caractères** (garantie par la colonne à un corps ≥ 48 px ; si ça dépasse, réduire la colonne ou couper la slide).
 - **Hook ≤ 12 mots**, lisible en < 1 s : c'est une audition de 2 secondes, l'algorithme tranche après.
 - **Un seul point focal par slide**, obtenu par les 4 leviers de hiérarchie : taille, graisse, couleur, position.
+- **Une illustration = un objet-métaphore concret.** Ne jamais illustrer un concept par un autre concept abstrait : prendre un objet physique qui incarne l'idée et se lit en 1 s (batterie = économiser l'énergie, touches CTRL+C/V = copier sans ancrer, loupe = vérifier, ampoule = insight). Un objet par slide, dans le langage line-art de la marque.
 
 ---
 
 ## 5. Le répertoire des 8 compositions (à faire alterner)
 
-Chaque composition = un squelette réutilisable ancré dans un principe. On les fait tourner ; **deux slides voisines ne partagent jamais le même squelette**.
+Chaque composition = un squelette réutilisable ancré dans un principe. On les fait tourner ; **deux slides voisines ne partagent jamais le même traitement** (même lorsqu'elles reposent sur l'ossature 3 registres commune de la n°2 : le placement de l'illustration, le ratio et le type de bloc changent à chaque slide).
 
 ### 1. Couverture cadrée — *canon de page (Tschichold / Van de Graaf)*
 Titre display (130–180 px) **flush-left ancré en haut-gauche**, 2–4 lignes courtes, le mot-clé sur sa propre ligne. Un seul mot en cursive d'accent (si le profil en a une). Grand vide en bas (30–40 %). Illustration absente ou très discrète. **→ slide de couverture / hook.**
 
-### 2. Champ 7/5 asymétrique — *grille suisse (Müller-Brockmann)*
-**Titre en pleine largeur en haut** (78–110 px, 1–2 lignes) suivi d'une règle d'accent ; ne jamais enfermer le titre dans la colonne étroite, il se resserre en 3–4 lignes. En dessous, deux champs : illustration line-art d'un côté, liste de puces (corps 46–48 px) de l'autre, **côté alterné gauche↔droite d'une slide à l'autre**. C'est le cheval de bataille (60–70 % des slides de contenu). **→ une idée + un visuel.**
+### 2. Partition 3 registres — *triptyque vertical (cheval de bataille)*
+Le squelette par défaut des slides de contenu (60–70 % d'entre elles). Trois bandes horizontales empilées : **titre en haut** en pleine largeur (72–110 px, 1–3 mots, flush-left ; ne jamais l'enfermer dans une colonne étroite), **illustration seule au milieu** (line-art à pleine opacité, entourée d'air, jamais en filigrane), **bloc texte en bas en pleine largeur** (corps ≥ 48 px, hiérarchie à 2 niveaux : mot-clé en accent + reste en encre). Le corps prend toute la largeur utile (≈ 880 px) : lignes de 30–50 caractères, lisibilité mobile maximale. **Remplace l'ancien côte-à-côte texte|illustration** (texte à gauche / illus à droite et inverse), écarté parce qu'il comprimait le corps dans une colonne étroite et cassait la lecture au téléphone. La variété vient du **traitement**, jamais deux slides voisines pareilles : place de l'illustration (haut-droite collée au titre / centrée / pleine largeur), ratio illus↔texte (dense au cœur, aéré en puces vers la fin), type de bloc (paragraphe, puces). **→ une idée + un visuel ; trame par défaut d'un carrousel, à ponctuer d'une ancre-nombre (n°3) ou d'une citation pleine (n°6) pour respirer.**
 
 ### 3. Ancre-nombre — *contraste d'échelle (Ruder / Gerstner)*
 Chiffre géant ExtraBold (240–330 px, ou en cursive d'accent) posé au point focal, débordant volontairement la colonne. Légende 48 px accrochée à sa baseline. **→ stat, étape chiffrée, preuve.** (Un pourcentage, une note, une durée, un volume.)
@@ -90,7 +91,7 @@ Illustration en **grand et pleine opacité** (haut ou centre, elle domine), titr
 ### 8. Signoff / CTA — *symétrie de clôture*
 Récap en 1 ligne + **une seule** action + signoff (si le style du profil en porte un : avatar + Prénom Nom + titre de signature). Le centrage symétrique, banni ailleurs, devient ici un signal de fin. **→ dernière slide uniquement.**
 
-**Liants transverses :** un **pied constant** (site + éventuel compteur) verrouillé sur la même baseline, hors de la zone de danger basse. Option de **continuité** : un élément (trait, illustration) qui déborde d'une slide sur la suivante pour pousser au swipe (par touches, 1–2 fois max).
+**Liants transverses :** un **pied constant** (site + éventuel compteur) verrouillé sur la même baseline, hors de la zone de danger basse. Option de **continuité** : un élément (trait, illustration) qui déborde d'une slide sur la suivante pour pousser au swipe (par touches, 1–2 fois max). **Fil rouge (bookend) :** un même motif-signature (une illustration récurrente, un objet totem) ouvre la couverture, réapparaît une fois au cœur, puis referme le signoff — il signe le carrousel et crée le sentiment de boucle (mere exposure). Un seul motif, 2–3 apparitions maximum.
 
 ## 6. Rythme d'une séquence de 9 slides
 
@@ -100,11 +101,11 @@ Arc **Hook → Contexte → 3× Valeur → Preuve → Respiration → Signoff**.
 |---|---|---|
 | 1 | Hook | Couverture cadrée |
 | 2 | Contexte / chiffre | Ancre-nombre |
-| 3 | Valeur 1 | Champ 7/5 (illus gauche) |
+| 3 | Valeur 1 | Partition 3 registres (illus haut-droite) |
 | 4 | Valeur-pivot | Comparaison 2 colonnes **ou** Hero illustration |
-| 5 | Valeur 2 | Champ 7/5 (illus droite) |
+| 5 | Valeur 2 | Partition 3 registres (illus pleine largeur) |
 | 6 | Valeur 3 | Étapes numérotées |
-| 7 | Preuve / loi | Champ 7/5 (illus gauche) |
+| 7 | Preuve / loi | Partition 3 registres (illus collée au titre) |
 | 8 | Punchline | Citation pleine |
 | 9 | Signoff | Signoff / CTA |
 
@@ -128,7 +129,7 @@ Le tic **n°1** : **label en CAPITALES espacées au-dessus du titre** (le « kic
 3. Contraste : encre ou accent du profil sur le fond ; corps ≥ 4,5:1, grand texte ≥ 3:1 ; aucune métadonnée sous le seuil.
 4. 1 idée + 1 point focal par slide ; ≤ 30 mots ; ≤ 6–8 lignes.
 5. Longueur de ligne 30–50 caractères.
-6. Deux slides voisines de compositions différentes.
+6. Deux slides voisines de traitement différent (sous une ossature 3 registres commune : varier la place de l'illustration, le ratio, le type de bloc).
 7. Zéro eyebrow en capitales, zéro tic de la section 7.
 8. Aucun point final sur titre/accroche/chute/CTA ; pas de tiret cadratin ; pas d'emoji Unicode.
 9. Un seul accent ; illustrations line-art à pleine opacité (jamais en filigrane).
