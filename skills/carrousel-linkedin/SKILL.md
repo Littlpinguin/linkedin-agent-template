@@ -110,7 +110,7 @@ Avatar rond 112×112 px, bordure 2px. Nom en `.h-m`, titre en `.body-m`. (Valeur
 
 ## Compositions & alternance (répertoire)
 
-Le répertoire complet des **8 compositions nommées** (Couverture cadrée, Champ 7/5 asymétrique, Ancre-nombre, Étapes numérotées, Comparaison 2 colonnes, Citation pleine, Hero illustration, Signoff/CTA), la grille de référence et le rythme d'une séquence type vivent dans `voice/compositions-carrousel.md`. **Le lire avant de figer le plan de slides.**
+Le répertoire complet des **8 compositions nommées** (Couverture cadrée, Partition 3 registres, Ancre-nombre, Étapes numérotées, Comparaison 2 colonnes, Citation pleine, Hero illustration, Signoff/CTA), la grille de référence et le rythme d'une séquence type vivent dans `voice/compositions-carrousel.md`. **Le lire avant de figer le plan de slides.**
 
 Règle de fer : **jamais deux slides voisines au même squelette.** On fait tourner les compositions d'une slide à l'autre — c'est cette alternance, plus qu'aucun effet, qui donne le rendu « designé par un senior ». Les patterns ci-dessous sont un sous-ensemble rapide de ce répertoire.
 
