@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Génère une image via Gemini (Nano Banana Pro) selon l'identité visuelle du profil.
+"""Génère une image via Gemini (Nano Banana 2.1) selon l'identité visuelle du profil.
 
 Usage:
     python3 scripts/gen-image.py --slug <slug> --prompt-file <path> [--ref img1.png img2.png] [--aspect 16:9]
@@ -45,7 +45,7 @@ def main():
 
     env = load_env()
     api_key = env.get("GOOGLE_AI_API_KEY", "")
-    model = env.get("GOOGLE_AI_IMAGE_MODEL", "gemini-3-pro-image-preview")
+    model = env.get("GOOGLE_AI_IMAGE_MODEL", "gemini-nano-banana-2.1")
     if not api_key:
         sys.exit("ERREUR : GOOGLE_AI_API_KEY est vide dans .env. Ajoute une clé Google AI Studio avant de lancer.")
 
@@ -103,7 +103,7 @@ def main():
         source=args.prompt_file,
         model=model,
         refs=" | ".join(args.ref),
-        ai_disclosure="Généré par IA (Nano Banana Pro)",
+        ai_disclosure="Généré par IA (Nano Banana 2.1)",
         status="brut",
         notes=f"aspect {args.aspect}",
     )

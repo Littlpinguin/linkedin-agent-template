@@ -69,7 +69,7 @@ Ces fichiers font foi. En cas de doute sur un mot, une couleur, un angle, on y r
 |---|---|
 | `onboarding` | **Première fois.** Calibrer l'agent sur la voix de la personne à partir de ses posts + son site. |
 | `my-viral-post` | Écrire un post LinkedIn (texte) dans sa voix, à partir de ce qui marche. |
-| `image-linkedin` | Générer une image (Nano Banana Pro) : la personne détournée en personnage. Opinion, meme. |
+| `image-linkedin` | Générer une image (Nano Banana 2.1) : la personne détournée en personnage. Opinion, meme. |
 | `carte-linkedin` | Composer une carte / infographie single-image (HTML → PNG). Mise en page selon `profile/style-visuel.md`. |
 | `carrousel-linkedin` | Carrousel multipage (HTML → PDF). Source des tokens de design (typo, espacement, fonts). |
 

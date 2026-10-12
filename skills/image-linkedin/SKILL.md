@@ -1,11 +1,11 @@
 ---
 name: image-linkedin
-description: Génère une image LinkedIn via Gemini Nano Banana Pro : illustration détournée d'une référence pop/geek/meme avec le visage de la personne, ou meme sur une prise de position. À utiliser quand elle demande "une image détournée", "un meme", "un visuel IA avec ma tête", "détourne telle référence", pour accompagner un post. Pour une carte/infographie texte → carte-linkedin. Pour un carrousel → carrousel-linkedin.
+description: Génère une image LinkedIn via Gemini Nano Banana 2.1 : illustration détournée d'une référence pop/geek/meme avec le visage de la personne, ou meme sur une prise de position. À utiliser quand elle demande "une image détournée", "un meme", "un visuel IA avec ma tête", "détourne telle référence", pour accompagner un post. Pour une carte/infographie texte → carte-linkedin. Pour un carrousel → carrousel-linkedin.
 ---
 
 # image-linkedin : image IA détournée + meme
 
-Tu génères une image pour un post LinkedIn via Gemini Nano Banana Pro (`scripts/gen-image.py`). Deux usages : une **illustration détournée** (une référence pop/geek/memesque revisitée avec le visage de la personne) ou un **meme** sur une prise de position. **Règle : jamais de requête brute.** Chaque prompt suit la doctrine Nano Banana Pro ci-dessous, et chaque génération est journalisée.
+Tu génères une image pour un post LinkedIn via Gemini Nano Banana 2.1 (`scripts/gen-image.py`). Deux usages : une **illustration détournée** (une référence pop/geek/memesque revisitée avec le visage de la personne) ou un **meme** sur une prise de position. **Règle : jamais de requête brute.** Chaque prompt suit la doctrine Nano Banana 2.1 ci-dessous, et chaque génération est journalisée.
 
 ## Doctrine de marque (personal branding pur)
 
@@ -23,7 +23,7 @@ Ensuite :
 2. Elle choisit.
 3. Écris le prompt selon le template ci-dessous, lance `scripts/gen-image.py`, vérifie le rendu, itère par édition (pas en repartant de zéro).
 
-## Doctrine de prompting Nano Banana Pro (non négociable)
+## Doctrine de prompting Nano Banana 2.1 (non négociable)
 
 1. **Langage naturel, pas de soupe de tags.** Briefe le modèle comme un illustrateur humain, en phrases complètes avec une hiérarchie d'importance.
 2. **Identity Lock avec « Image 1 ».** Référence l'image par son numéro. « Utilise le visage de l'Image 1. Conserve EXACTEMENT identiques à l'Image 1 : (a) les traits du visage, (b) la coupe de cheveux, (c) la barbe si présente, (d) le teint. »

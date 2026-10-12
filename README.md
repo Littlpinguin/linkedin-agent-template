@@ -78,7 +78,7 @@ linkedin-agent-template/
 ├── skills/
 │   ├── onboarding/              ← calibrates the agent on your voice + style (first run)
 │   ├── my-viral-post/           ← writes the post (text)
-│   ├── image-linkedin/          ← AI-remixed image + meme (Nano Banana Pro)
+│   ├── image-linkedin/          ← AI-remixed image + meme (Nano Banana 2.1)
 │   ├── carte-linkedin/          ← single-image card / infographic (HTML→PNG)
 │   └── carrousel-linkedin/      ← multipage PDF carousel (source of design tokens)
 ├── voice/
