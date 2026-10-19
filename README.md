@@ -1,8 +1,39 @@
-# linkedin-agent-template
+# LinkedIn agent for Claude Code: posts in your voice, visuals, weekly topic ideas
+
+![LinkedIn agent template for Claude Code: real posts and visuals made with it](docs/social-preview.jpg)
 
 **A personal LinkedIn agent template for Claude Code / Cowork.** You open it, type `start`, and a guided 30-minute onboarding calibrates it on *you*: it fetches your past posts to learn your voice and what performs, sets up your audience and visual style, takes 3 photos of you to put you in custom images, connects an image generator, and installs a weekly content watch that brings you topic ideas without you asking.
 
 After that, it writes posts that sound like you and produces the visuals to go with them (AI images with you in the scene, cards, carousels).
+
+## What it makes: real posts
+
+Visuals published on LinkedIn by people who use this agent, unedited.
+
+**[Jessy Martin](https://www.linkedin.com/in/jessy-martin/)**, author of the template: AI scenes where he plays the part, carousels, cards.
+
+<table>
+  <tr>
+    <td width="33%"><img src="docs/exemples/jessy-scene-on-recrute.jpg" alt="AI scene: Jessy on a beach holding an 'On recrute' (we're hiring) sign"><br><sub>AI scene, recruiting post: his best of his last 20 posts, 12× his median engagement</sub></td>
+    <td width="33%"><img src="docs/exemples/jessy-carrousel-copiste.jpg" alt="Carousel cover: 'The best AI designer is a copyist'"><br><sub>Carousel cover (9 pages)</sub></td>
+    <td width="33%"><img src="docs/exemples/jessy-carrousel-stanford.jpg" alt="Carousel cover: '425 pages from Stanford on AI. 10 numbers, and one disagreement'"><br><sub>Carousel cover (18 pages), from a report</sub></td>
+  </tr>
+  <tr>
+    <td><img src="docs/exemples/jessy-carte-ia-pme.jpg" alt="Card: 'AI for SMBs: investment or plain expense?', Jessy as a detective"><br><sub>Card: hook on top, question at the bottom</sub></td>
+    <td><img src="docs/exemples/jessy-scene-napoleon.jpg" alt="AI scene: Jessy as Napoleon at a growth hacking blackboard"><br><sub>AI scene: a pop-culture remix</sub></td>
+    <td><img src="docs/exemples/jessy-carte-complexite-simplicite.jpg" alt="Split card: 'Complexity VS Simplicity'"><br><sub>Split card for a comparison post</sub></td>
+  </tr>
+</table>
+
+**[Thibault Winka](https://www.linkedin.com/in/thibault-winka/)**, pharmacist and CEO of Team Officine, with his own agent:
+
+<table>
+  <tr>
+    <td width="33%"><img src="docs/exemples/thibault-1.jpg" alt="LinkedIn post by Thibault Winka: AI scene of him at the national pharmacists' congress"><br><sub>AI scene with his face: 56 likes, 13 comments</sub></td>
+    <td width="33%"><img src="docs/exemples/thibault-2.jpg" alt="LinkedIn post by Thibault Winka: infographic on pharmacist recruitment by region"><br><sub>Data card from France Travail figures, sourced at the bottom</sub></td>
+    <td width="33%"><img src="docs/exemples/thibault-3.jpg" alt="LinkedIn post by Thibault Winka: AI scene of him lost with a map, 'Pharmacie 17 km' sign"><br><sub>AI scene on a recruiting topic: 23 comments</sub></td>
+  </tr>
+</table>
 
 ## Load it into Claude (copy-paste)
 
