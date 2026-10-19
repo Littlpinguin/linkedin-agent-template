@@ -1,8 +1,8 @@
 # Identité éditoriale : [GABARIT À REMPLIR]
 
 > **Ce fichier est un gabarit.** Il sera entièrement réécrit par la skill `onboarding`,
-> à partir de l'analyse de tes vrais posts LinkedIn et de ton site. Tant qu'il porte la
-> mention « GABARIT », l'agent considère que la configuration n'est pas faite.
+> à partir de l'analyse de tes vrais posts LinkedIn et de ton site. Tant que son titre porte
+> « [GABARIT À REMPLIR] », l'agent considère que la configuration n'est pas faite.
 >
 > La structure ci-dessous est celle d'une identité éditoriale qui marche. L'onboarding
 > remplit chaque section avec TES éléments réels (tes accroches, tes registres

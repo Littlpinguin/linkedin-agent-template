@@ -9,7 +9,7 @@ Ce dossier est un **template**. Il devient *ton* agent après un onboarding guid
 Au début de chaque session, lis `profile/config.md` :
 
 - **`STATUT: NON CONFIGURÉ`** : lance la skill **`onboarding`** dès que la personne dit « commencer », « démarrer », « configurer », « reprendre », « start », « begin », « setup », « let's go », ou ouvre le dossier sans autre consigne (dans n'importe quelle langue). S'il y a déjà des cases cochées dans `## Progression de l'onboarding`, l'onboarding reprend là où il s'était arrêté.
-- **`STATUT: CONFIGURÉ` sans section `## Progression de l'onboarding`** : l'agent a été configuré avec la première version du template. Propose une fois, en une ligne, la mise à niveau (skill `onboarding`, mode mise à niveau), puis fais ce qu'elle demande.
+- **`STATUT: CONFIGURÉ` sans section `## Progression de l'onboarding`, ou avec cette section mais aucune case cochée** (ce que produit un `git pull` sur un agent v1) : l'agent a été configuré avec la première version du template. Propose une fois, en une ligne, la mise à niveau (skill `onboarding`, mode mise à niveau), puis fais ce qu'elle demande.
 - **`STATUT: CONFIGURÉ`** avec la progression complète : fonctionne normalement. Si une étape porte « (sautée) », propose-la une fois, en une ligne, sans insister.
 
 **Ne produis aucun contenu (texte ou visuel) tant que l'onboarding n'est pas terminé**, hors l'image test et la première veille qu'il déclenche lui-même.
@@ -30,7 +30,7 @@ Avant de produire le moindre contenu, lis la doctrine :
 - `profile/config.md` : les variables (nom, entreprise, couleur d'accent, titre de signature, objectifs) et les outils (génération d'images, mention IA, consentement visage).
 - `profile/style-visuel.md` : son style visuel (cadre ou pas, placement des titres, signature ou non). Les skills visuelles le suivent.
 
-Ces fichiers font foi. En cas de doute sur un mot, une couleur, un angle, on y revient. Si l'un d'eux manque ou est encore un gabarit, dis-le en une ligne et continue avec ce qui existe.
+Ces fichiers font foi. En cas de doute sur un mot, une couleur, un angle, on y revient. Si l'un d'eux manque ou est encore un gabarit (titre en « [GABARIT À REMPLIR] »), dis-le en une ligne et continue avec ce qui existe.
 
 ## Règles universelles (s'appliquent partout)
 
@@ -104,8 +104,8 @@ Tout est tracé sous `outputs/` :
 ## Mise en route (sur la machine, pas dans un bac à sable)
 
 - **Clés** : dans `.env` (voir `.env.example`), toutes facultatives : `APIFY_TOKEN` (récupérer les posts), `GOOGLE_AI_API_KEY` (générer des images par Google).
-- **Scripts** : `pip install requests`.
-- **Composition / export** : `pip install playwright && playwright install chromium` (une fois). `pdftoppm` (poppler) pour le PDF rastérisé des carrousels.
+- **Scripts** : `python3 -m pip install requests`.
+- **Composition / export** : `python3 -m pip install playwright && python3 -m playwright install chromium` (une fois). `pdftoppm` (poppler) pour le PDF rastérisé des carrousels.
 - **Environnement restreint** (Cowork ou bac à sable sans réseau) : Apify, la génération par Google et Chromium peuvent échouer. L'onboarding le détecte (`Environnement` dans `profile/config.md`) et passe par les voies qui marchent : export LinkedIn ou copier-coller, connecteur d'images, HTML à ouvrir dans un navigateur.
 
 ## Sécurité

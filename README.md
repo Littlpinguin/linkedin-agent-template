@@ -62,7 +62,7 @@ Ten steps, one question at a time. You can skip a step, stop, and pick up later 
 ## Requirements
 
 - **Claude Code** (desktop app or terminal) or **Cowork**.
-- **Python 3** with `pip install requests` (post fetching, image generation) and `pip install playwright && playwright install chromium` (cards and carousels). `pdftoppm` (poppler, `brew install poppler`) for print-sharp carousel PDFs.
+- **Python 3** with `python3 -m pip install requests` (post fetching, image generation) and `python3 -m pip install playwright && python3 -m playwright install chromium` (cards and carousels). `pdftoppm` (poppler, `brew install poppler`) for print-sharp carousel PDFs.
 - **Optional keys** in `.env` (copy `.env.example`): `APIFY_TOKEN`, `GOOGLE_AI_API_KEY`. Never paste a key into the chat: write it in `.env` and tell the agent "done".
 - **In a restricted environment** (Cowork, sandbox without network): Apify, Google generation and Chromium may fail. The onboarding detects it and uses LinkedIn's export or copy-paste, an image connector, and HTML cards to open in your browser.
 
@@ -117,8 +117,26 @@ linkedin-agent-template/
 
 Get the new version **without overwriting the files the onboarding filled in**: `profile/*.md`, `voice/identite-editoriale.md`, `veille/` and `assets/`.
 
-- With git: `git pull`. If git reports conflicts on those files, keep yours: `git checkout --ours profile/ voice/identite-editoriale.md && git add -A && git commit`.
-- From a ZIP: copy everything from the new version **except** those files and folders.
+- With git, in your agent's folder. First save your current setup (your photos stay out of the commit):
+
+  ```bash
+  git add -A -- . ':!assets/moi' && git commit -m "My agent before the update"
+  ```
+
+  Then fetch the new version:
+
+  ```bash
+  git pull --no-rebase --no-edit
+  ```
+
+  If git reports conflicts, keep your own files and take the template's `CLAUDE.md`:
+
+  ```bash
+  git checkout --ours profile/ voice/identite-editoriale.md && git checkout --theirs CLAUDE.md && git add -A -- . ':!assets/moi' && git commit --no-edit
+  ```
+
+  (If you get "Your local changes would be overwritten", the first command was skipped. If you get "Need to specify how to reconcile divergent branches", `--no-rebase` was missing.)
+- From a ZIP: copy everything from the new version **except** your existing files in `profile/`, `voice/identite-editoriale.md`, `veille/` and `assets/`. Do copy the new `profile/` files you don't have yet (`recette.md`, `cible.md`, `veille.md`).
 
 Then open the folder and say `update my agent`. The onboarding runs in upgrade mode: it keeps your editorial identity, moves your recipe to `profile/recette.md`, and only plays the new steps (audience, 3 photos, image generation, content watch). Your old `visage-*` photos still work. If you had committed them, the agent helps you untrack them (the first version didn't exclude them from git). The onboarding no longer edits `README.md` or `CLAUDE.md`, so future updates won't conflict.
 

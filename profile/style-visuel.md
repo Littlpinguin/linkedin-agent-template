@@ -5,7 +5,7 @@
 > `carrousel-linkedin`, `image-linkedin`) **lisent ce fichier et suivent ce style**, au
 > lieu d'imposer un cadre standard.
 >
-> Tant que ce fichier porte la mention « GABARIT », aucun style personnalisé n'est défini :
+> Tant que le titre porte « [GABARIT À REMPLIR] », aucun style personnalisé n'est défini :
 > les skills retombent sur des options neutres (et ne forcent ni liseré, ni titre haut, ni
 > signature). Chaque section est remplie avec ce qui est **observé** dans les références,
 > pas avec un style imposé.
