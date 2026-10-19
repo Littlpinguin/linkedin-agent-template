@@ -74,7 +74,7 @@ Pour chaque idée :
 - Statut : actu chaude | signal faible
 - Le fait (1 phrase) + source datée + lien
 - Ton angle : registre activé + point de vue (pas juste le sujet)
-- Accroche candidate : dans ta voix, sans tiret cadratin ni parallélisme négatif
+- Accroche candidate : dans ta voix, sans tiret cadratin ni parallélisme négatif, sans te prêter un fait que tu n'as pas raconté (sinon : « à garder seulement si c'est vrai »)
 - Format visuel conseillé : texte seul / image / meme / carte / carrousel / infographie
 - CTA de clôture
 

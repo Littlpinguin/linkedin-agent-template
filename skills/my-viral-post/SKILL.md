@@ -18,7 +18,7 @@ description: Rédige un nouveau post LinkedIn dans la voix de la personne, à pa
 
 **Référence de style prioritaire : les 5 derniers posts validés.** Ouvre `outputs/registry.csv`, garde les lignes `kind = post`, prends les 5 slugs les plus récents (la dernière ligne d'un slug fait foi) et lis leur `post.md` (texte final + « Notes de production »). Ces posts, avec les retouches de la personne, priment sur `profile/recette.md` en cas d'écart : ils captent son style le plus à jour.
 
-**Repli** : si `profile/recette.md` ou `profile/cible.md` est encore un gabarit ou manque, dis-le en une ligne, travaille avec `voice/identite-editoriale.md`, et propose de rejouer l'étape correspondante de l'onboarding.
+**Repli** : si `profile/recette.md` ou `profile/cible.md` est encore un gabarit ou manque, dis-le en une ligne, travaille avec `voice/identite-editoriale.md`, et propose de rejouer l'étape correspondante de l'onboarding. Si la recette repose sur une base prudente (moins de 10 posts en tête de `profile/recette.md`) et que le registre compte depuis au moins 10 posts publiés, propose une fois « recalibre ma recette ».
 
 ## D'où vient le sujet
 

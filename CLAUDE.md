@@ -10,7 +10,7 @@ Au début de chaque session, lis `profile/config.md` :
 
 - **`STATUT: NON CONFIGURÉ`** : lance la skill **`onboarding`** dès que la personne dit « commencer », « démarrer », « configurer », « reprendre », « start », « begin », « setup », « let's go », ou ouvre le dossier sans autre consigne (dans n'importe quelle langue). S'il y a déjà des cases cochées dans `## Progression de l'onboarding`, l'onboarding reprend là où il s'était arrêté.
 - **`STATUT: CONFIGURÉ` sans section `## Progression de l'onboarding`, ou avec cette section mais aucune case cochée** (ce que produit un `git pull` sur un agent v1) : l'agent a été configuré avec la première version du template. Propose une fois, en une ligne, la mise à niveau (skill `onboarding`, mode mise à niveau), puis fais ce qu'elle demande.
-- **`STATUT: CONFIGURÉ`** avec la progression complète : fonctionne normalement. Si une étape porte « (sautée) », propose-la une fois, en une ligne, sans insister.
+- **`STATUT: CONFIGURÉ`** avec la progression complète : fonctionne normalement. Si une étape porte « (sautée) » ou « (base prudente) », propose-la une fois, en une ligne, sans insister. Une étape « (refusée) » ne se repropose jamais.
 
 **Ne produis aucun contenu (texte ou visuel) tant que l'onboarding n'est pas terminé**, hors l'image test et la première veille qu'il déclenche lui-même.
 
