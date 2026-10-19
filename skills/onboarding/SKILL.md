@@ -57,7 +57,7 @@ Lis `profile/config.md` :
      Ajoute aussi la ligne `- URL du profil LinkedIn :` dans `## Identité` si elle manque. Si une clé Google est déjà remplie dans `.env` (`grep -c '^GOOGLE_AI_API_KEY=.' .env` renvoie 1), note `Génération d'images : google`.
   2. déplace la recette existante (chiffres, registres classés, accroches, outliers) de `voice/identite-editoriale.md` vers `profile/recette.md`, sans réécrire le reste de l'identité éditoriale (s'il n'y a pas de recette chiffrée à déplacer, ou si `profile/recette.md` manque parce que la mise à jour s'est faite par ZIP, crée-le avec l'en-tête `Base : aucun post analysé` et fais de l'étape 3 la prochaine étape proposée) ;
   3. propose l'étape 3 en option (récupérer l'engagement via Apify pour affiner la recette), puis joue les étapes 5, 7, 8 et 9 ;
-  4. pour les photos, si `assets/moi/visage-*` existent (`.jpeg`, `.jpg` ou `.png`), regarde-les et propose de les renommer en `face`, `profil-gauche`, `profil-droit` selon leur angle, en demandant celles qui manquent ;
+  4. pour les photos, si `assets/moi/visage-*` existent (`.jpeg`, `.jpg` ou `.png`), regarde-les et propose de les renommer en `face`, `nez-a-gauche`, `nez-a-droite` selon leur angle, en demandant celles qui manquent ;
   5. **photos déjà dans git** : la version 1 n'excluait pas `assets/moi/`. Lance `git ls-files assets/moi` (si le dossier est un dépôt git). S'il liste des photos, explique qu'elles sont suivies par git et peut-être déjà poussées, propose `git rm --cached assets/moi/<fichier>` pour chacune puis un commit, et préviens que l'historique du dépôt (et toute copie publique) les contient encore : si le dépôt est public, le passer en privé ou le recréer.
 
 **Fichiers que la personne a personnalisés** (ne jamais les remplacer par la version du template lors d'une mise à jour) : `profile/*.md`, `voice/identite-editoriale.md`, `veille/`, `assets/`. Si elle a récupéré la nouvelle version et que l'un d'eux est revenu à l'état de gabarit, demande-lui de restaurer sa copie avant d'aller plus loin.
@@ -66,8 +66,8 @@ Lis `profile/config.md` :
 
 Présente-toi en quatre phrases : ce que l'agent va faire, la durée (environ 30 minutes, en plusieurs fois si elle veut), le fait qu'elle peut sauter une étape ou s'arrêter quand elle veut, et ce qu'il est utile d'avoir sous la main :
 - l'URL de son profil LinkedIn et celle de son site ;
-- 3 ou 4 visuels de posts qu'elle aime (les siens ou ceux d'autres) ;
-- 3 photos d'elle : une de face, une de profil gauche, une de profil droit ;
+- 3 ou 4 visuels de posts qu'elle aime (les siens ou ceux d'autres ; facultatif si elle passe par Apify, qui récupère les siens) ;
+- 3 photos d'elle : une de face, une le nez pointé vers le bord gauche de la photo, une le nez pointé vers le bord droit ;
 - si elle veut, un compte Apify (pour récupérer ses posts avec leurs chiffres) et un moyen de générer des images.
 
 Puis vérifie l'installation, sans lui demander de le faire :
@@ -91,9 +91,9 @@ Sortie : `profile/config.md` (Environnement). Coche l'étape 1.
 
 ## Étape 2 : toi et ton activité
 
-Demande prénom, nom, URL du profil LinkedIn, URL du site (ou d'une page qui présente son activité). Récupère le site avec WebFetch (accueil, à-propos, offres) et extrais : l'entreprise, le secteur, l'offre, la cible apparente, le ton, le positionnement. Si le site est inaccessible, demande-lui de résumer ces points en quelques lignes.
+Demande prénom, nom, titre LinkedIn (la ligne sous son nom sur son profil, qui servira de titre de signature), URL du profil LinkedIn, URL du site (ou d'une page qui présente son activité). Récupère le site avec WebFetch (accueil, à-propos, offres) et extrais : l'entreprise, le secteur, l'offre, la cible apparente, le ton, le positionnement. Si le site est inaccessible, demande-lui de résumer ces points en quelques lignes.
 
-Sorties : `profile/config.md` (Identité), `outputs/onboarding/analyse-site.md`. Coche l'étape 2.
+Sorties : `profile/config.md` (Identité, dont `Titre de signature`), `outputs/onboarding/analyse-site.md`. Coche l'étape 2.
 
 ## Étape 3 : tes anciens posts
 
@@ -103,7 +103,7 @@ But : récupérer de 30 à 100 de ses posts, idéalement avec leurs chiffres d'e
    ```bash
    python3 scripts/scrape-linkedin-posts.py --profile <URL du profil> --max 100 --visuels
    ```
-   Le script écrit `outputs/onboarding/posts.csv`, du plus récent au plus ancien (date, texte, likes, commentaires, partages, URL, `format`, `nb_visuels`, `visuels`), le JSON complet d'Apify à côté (`posts-brut.json`), et, avec `--visuels`, les images, les pages des carrousels et les miniatures de vidéos dans `outputs/onboarding/visuels/` (gratuit, de l'ordre de 10 Mo pour 20 posts). Il affiche aussi son titre LinkedIn : propose-le comme titre de signature (`profile/config.md`, § 7 de l'identité éditoriale), elle confirme ou corrige. Les liens des visuels expirent sous quelques jours : pour les récupérer après coup sans repayer, `--dernier-lancement --visuels` relit le dernier lancement. Permet : l'engagement et le format de chaque post, donc le classement de ce qui marche. Ne permet pas : la gratuité au-delà des crédits offerts (de l'ordre de 1,50 à 2 $ les 1 000 posts au moment de l'écriture de ce template). À utiliser sur son propre profil, dans le respect des conditions de LinkedIn. Si le script échoue, reprends son message en clair, explique-le, et propose la voie 2 ou 3.
+   Le script écrit `outputs/onboarding/posts.csv`, du plus récent au plus ancien (date, texte, likes, commentaires, partages, URL, `format`, `nb_visuels`, `visuels`), le JSON complet d'Apify à côté (`posts-brut.json`), et, avec `--visuels`, les images, les pages des carrousels et les miniatures de vidéos dans `outputs/onboarding/visuels/` (gratuit, de l'ordre de 10 Mo pour 20 posts). Il affiche aussi son titre LinkedIn : s'il diffère de celui donné à l'étape 2, demande lequel garder comme titre de signature. Les liens des visuels expirent sous quelques jours : pour les récupérer après coup sans repayer, `--dernier-lancement --visuels` relit le dernier lancement. Permet : l'engagement et le format de chaque post, donc le classement de ce qui marche. Ne permet pas : la gratuité au-delà des crédits offerts (de l'ordre de 1,50 à 2 $ les 1 000 posts au moment de l'écriture de ce template). À utiliser sur son propre profil, dans le respect des conditions de LinkedIn. Si le script échoue, reprends son message en clair, explique-le, et propose la voie 2 ou 3.
 2. **Export officiel LinkedIn (gratuit).** *Préférences > Confidentialité des données > Obtenir une copie de vos données > Publications*. LinkedIn envoie un lien par e-mail, de quelques minutes à 24 h. Elle dépose le fichier (`Shares.csv` ou un `.xlsx`) dans le dossier et te donne le chemin. Permet : tous ses posts, gratuitement. Ne permet pas : les likes et commentaires. Si l'attente est longue, propose de passer aux étapes 5 à 9 et de revenir ici ensuite.
 3. **Copier-coller (gratuit).** Elle colle au moins 15 posts, de préférence ceux qui ont le mieux marché, avec leurs likes si elle les connaît. Permet : démarrer tout de suite. Ne permet pas : un échantillon représentatif.
 
@@ -123,11 +123,12 @@ Analyse les posts et note tout dans `outputs/onboarding/analyse-style.md` :
 - **Les formats** : texte seul, image, carrousel, vidéo, lien, citation. Avec la colonne `format` du CSV Apify, donne la médiane d'engagement par format et le nombre de posts derrière chaque médiane (un format vu 2 fois ne permet pas de conclure). Sans elle (export LinkedIn, copier-coller), classe à l'œil.
 - **Le vocabulaire signature**, et **les tics** (dont ceux de la liste noire de `voice/anti-ai-writing-style.md` qu'elle utilise déjà).
 
-**Montre-lui une synthèse courte avant d'écrire quoi que ce soit** : 3 accroches qui ont marché, ses 2 ou 3 registres les plus forts, 2 ou 3 tics repérés. Demande ce qui sonne faux ou manque. Intègre ses corrections.
+**Montre-lui une synthèse courte avant d'écrire quoi que ce soit** : 3 accroches qui ont marché, ses 2 ou 3 registres les plus forts, 2 ou 3 tics repérés, et les contraintes que tu lis dans ses posts (langue, longueur habituelle, rythme de publication). Demande ce qui sonne faux ou manque. Intègre ses corrections.
 
 Puis rédige :
 - **`profile/recette.md`** (en remplaçant le gabarit) : chiffres, formats, angles classés, accroches, voix et cadence, modèle de visuel, outliers avec leurs URL ;
 - **`voice/identite-editoriale.md`** (en remplaçant le gabarit) : ses 8 sections remplies avec les éléments réels des étapes 2 à 4 et écrites dans sa voix. C'est le livrable le plus important. Pas de section vide, pas de « TODO ».
+- **`Contraintes`** dans `## Garde-fous` de `profile/config.md` : les contraintes validées (par exemple « français, 150 à 250 mots, 2 posts par semaine »).
 
 Coche l'étape 4.
 
@@ -140,9 +141,9 @@ Cinq questions, **une à la fois**. Pour chacune, propose d'abord ta réponse ti
 4. Qu'est-ce qui la fait hésiter ?
 5. Que doit-elle faire après avoir lu un de tes posts ?
 
-Ajoute l'objectif principal de la personne sur LinkedIn (reach, leads, autorité, recrutement) et les sujets qu'elle refuse de traiter.
+Ajoute l'objectif principal de la personne sur LinkedIn (reach, leads, autorité, recrutement), les sujets qu'elle refuse de traiter, et les méthodes ou cadres d'autres auteurs qu'elle utilise et qu'il faudra toujours créditer (repère ceux que citent son site et ses posts, elle complète ; « aucun » est une réponse valable).
 
-Sorties : `profile/cible.md` (en remplaçant le gabarit), `Cible prioritaire`, `Objectifs` et `Garde-fous` dans `profile/config.md`, `§ 5` de l'identité éditoriale. Coche l'étape 5.
+Sorties : `profile/cible.md` (en remplaçant le gabarit), `Cible prioritaire`, `Objectifs`, `Sujets / angles interdits` et `Méthodes ou cadres tiers` dans `profile/config.md`, `§ 5` de l'identité éditoriale. Coche l'étape 5.
 
 ## Étape 6 : ton style visuel
 
@@ -155,20 +156,24 @@ Si `outputs/onboarding/visuels/` existe (étape 3 avec `--visuels`), commence pa
 - image (photos, illustrations, memes, captures ; visage présent ou non) ;
 - mood en une phrase, et ce qu'on évite.
 
-Résume en une phrase, fais confirmer, puis demande : la couleur d'accent (hex, ou propose-en une cohérente avec ses références), ses polices de marque si elle en a (`.woff2` dans `assets/marque/fonts/`, sinon polices système), son logo éventuel, son titre de signature exact.
+Résume en une phrase, fais confirmer, puis demande : la couleur d'accent (hex, ou propose-en une cohérente avec ses références), ses polices de marque si elle en a (`.woff2` dans `assets/marque/fonts/`, sinon polices système), son logo éventuel. Déduis toi-même l'accent clair (l'accent éclairci pour les fonds), l'encre et le papier à partir de ses références, montre les 4 couleurs ensemble, elle valide. Remplis toutes les lignes de `## Identité visuelle`, aucune ne reste vide.
 
 Sans visuels de référence : style neutre, signalé comme tel, à affiner plus tard.
 
-Sorties : `profile/style-visuel.md` (en remplaçant le gabarit), `Identité visuelle` et `Titre de signature` dans `profile/config.md`. Coche l'étape 6.
+**Étape sautée** : laisse `profile/style-visuel.md` en gabarit (les skills visuelles proposent alors 2 ou 3 partis pris à chaque visuel), mais remplis quand même `## Identité visuelle` avec des valeurs neutres, notées comme telles : encre `#1A1A2E`, papier `#FDFCFA`, polices système, et une couleur d'accent qu'elle choisit en une question (ou `#2D6CDF` par défaut). Si des visuels ont été récupérés à l'étape 3, signale que l'étape se fait en deux minutes à partir d'eux.
+
+Sorties : `profile/style-visuel.md` (en remplaçant le gabarit), `Identité visuelle` dans `profile/config.md`. Coche l'étape 6.
 
 ## Étape 7 : tes 3 photos
 
 Explique à quoi elles servent : la mettre en scène dans des images personnalisées avec son vrai visage. Le modèle copie l'angle qu'il voit, d'où trois angles. Demande-lui de déposer dans `assets/moi/` :
 - `face.jpg` : de face, regard caméra ;
-- `profil-gauche.jpg` : nez tourné vers la gauche de l'image (de trois quarts à profil complet) ;
-- `profil-droit.jpg` : nez tourné vers la droite de l'image.
+- `nez-a-gauche.jpg` : de trois quarts ou de profil, le nez pointé vers le bord gauche de la photo ;
+- `nez-a-droite.jpg` : de trois quarts ou de profil, le nez pointé vers le bord droit de la photo.
 
-Une photo de téléphone suffit : une seule personne, visage net et assez grand, lumière du jour, fond simple. `.jpeg` et `.png` acceptés.
+Précise que le nom décrit ce qu'on voit sur la photo, pas le côté de son visage (beaucoup de gens appellent « profil gauche » la photo où le nez pointe à droite). Si elle ne sait pas nommer ses fichiers, elle peut les déposer tels quels : regarde-les et renomme-les toi-même selon l'angle.
+
+Une photo de téléphone suffit : une seule personne, visage net et assez grand, lumière du jour, fond simple. `.jpeg` et `.png` acceptés. Une photo d'iPhone en `.heic` se convertit avant tout usage (`sips -s format jpeg photo.heic --out face.jpg` sur Mac ; ailleurs, demande-lui de l'exporter en JPEG).
 
 **Regarde chaque photo** et redemande-la, en expliquant pourquoi, si : visage trop petit (moins d'un tiers de la hauteur), flou, contre-jour ou ombre forte, lunettes de soleil, casquette sur les yeux, plusieurs personnes, visage coupé, filtre beauté appuyé, ou angle qui ne correspond pas au nom du fichier. Propose de recadrer toi-même si seul le cadrage pèche (recadrer oui, étirer jamais).
 
@@ -197,9 +202,9 @@ Sorties : `## Outils` de `profile/config.md`. Coche l'étape 8.
 ## Étape 9 : ta veille
 
 1. **Propose les axes et les sources.** À partir de ses piliers (étape 4), de sa cible et de ce que sa cible lit (étape 5), propose 3 à 6 axes et des sources réelles pour chaque catégorie de `profile/veille.md` : presse du secteur, newsletters et blogs, comptes LinkedIn à surveiller, forums et communautés, sources institutionnelles et études, signaux faibles. Vérifie qu'une source existe avant de la proposer. Elle retire, elle ajoute.
-2. **Première veille en direct.** Lance la skill `veille-contenu` sur la fenêtre des 14 derniers jours, limitée à 5 angles. Montre-lui les 5 idées de sujets, sourcées et datées : c'est ce qu'elle recevra chaque semaine.
+2. **Première veille en direct, en version courte.** Annonce la durée (5 à 10 minutes) et propose de la lancer pendant qu'elle fait une pause. Lance la skill `veille-contenu` sur la fenêtre des 14 derniers jours, en mode onboarding : 3 sous-agents au plus (les 3 catégories de sources les mieux fournies), 5 angles. Montre-lui les idées de sujets, sourcées et datées : c'est ce qu'elle recevra chaque semaine, en plus complet. S'il en sort moins de 5, dis-le plutôt que de compléter avec des faits hors fenêtre.
 3. **Installe la routine.** Demande le jour et l'heure (défaut : lundi 8 h). Présente les voies :
-   - **Tâche planifiée de l'application Claude (recommandé, desktop ou Cowork).** Crée-la avec l'outil de tâches planifiées disponible dans la session, avec ce prompt : « Dans le dossier <chemin absolu de l'agent>, lance la skill veille-contenu en mode routine. » Permet : zéro manipulation. Ne permet pas : de tourner si l'ordinateur est éteint ou l'application fermée (la tâche part au prochain lancement).
+   - **Tâche planifiée de l'application Claude (recommandé, desktop ou Cowork).** Crée-la avec l'outil de tâches planifiées disponible dans la session, avec ce prompt : « Dans le dossier <chemin absolu de l'agent>, lance la skill veille-contenu en mode routine. » Permet : zéro manipulation. Ne permet pas : de tourner si l'ordinateur est éteint ou l'application fermée (la tâche part au prochain lancement). Une tâche planifiée tourne sans personne pour cliquer : propose de la lancer une fois tout de suite, pendant que la personne est là, pour qu'elle accepte les autorisations demandées (recherche web, écriture dans `veille/`) ; sinon la première veille automatique risque de rester bloquée sur une demande d'autorisation.
    - **Routine cloud Claude Code (`/schedule`).** Tourne sans l'ordinateur. Ne permet pas : de s'en passer d'un dépôt GitHub **privé** à elle. Si elle n'en a pas, guide sa création selon le cas :
      - dossier téléchargé en ZIP (pas de dépôt git, `git rev-parse` échoue) : `git init && git add -A && git commit -m "Mon agent LinkedIn"` puis `gh repo create <nom> --private --source . --push` ;
      - dossier cloné depuis le template (`origin` pointe vers le template public) : `gh repo create <nom> --private` puis `git remote rename origin template && git remote add origin <URL du nouveau dépôt> && git push -u origin main`.

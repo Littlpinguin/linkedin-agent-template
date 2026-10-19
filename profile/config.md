@@ -50,7 +50,7 @@ Version de l'onboarding : 2
 - Génération d'images :               # google | magnific | higgsfield | aucune
 - Mention « Visuel généré par IA » :  oui   # oui | non ; le sidecar JSON trace l'usage de l'IA dans tous les cas
 - Consentement visage :               # oui (date) ; sans oui, aucune image générée avec tes photos
-- Photos de référence :               # face.jpg, profil-gauche.jpg, profil-droit.jpg (ou anciens noms)
+- Photos de référence :               # face.jpg, nez-a-gauche.jpg, nez-a-droite.jpg (ou anciens noms)
 
 ## Garde-fous
 - Sujets / angles interdits (au-delà de la liste anti-IA universelle) :

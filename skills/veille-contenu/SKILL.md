@@ -30,7 +30,7 @@ Lis `veille/journal.md`. Extrais les angles des 8 dernières semaines. Un angle 
 Fenêtre par défaut : 14 jours. Axes : ceux de `profile/veille.md`. Demande-lui si elle a une actu ou un angle en tête (facultatif ; sauté en mode routine).
 
 ### 2. Lancer les sous-agents en parallèle
-Un sous-agent par catégorie **non vide** de `profile/veille.md` (Agent tool, une seule salve, 6 au plus). Chacun couvre la fenêtre de 14 jours sur ses sources et rend une liste de candidats avec : le fait, la source primaire datée et son lien, où ça se discute, pourquoi maintenant, et un niveau de saturation estimé.
+Un sous-agent par catégorie **non vide** de `profile/veille.md` (Agent tool, une seule salve, 6 au plus ; 3 au plus pour la première veille de l'onboarding, sur les catégories les mieux fournies, pour qu'elle tienne en quelques minutes). Chacun couvre la fenêtre de 14 jours sur ses sources et rend une liste de candidats avec : le fait, la source primaire datée et son lien, où ça se discute, pourquoi maintenant, et un niveau de saturation estimé.
 
 | Catégorie | Ce que le sous-agent cherche | Limites connues à lui rappeler |
 |---|---|---|

@@ -14,7 +14,7 @@ Lis `profile/config.md`, section `## Outils` :
 - **`Génération d'images` vide** (agent configuré avant cette ligne) : si `GOOGLE_AI_API_KEY` est rempli dans `.env` (vérifie avec `grep -c '^GOOGLE_AI_API_KEY=.' .env`, qui n'affiche jamais la clé), prends la voie `google` et propose de noter le choix ; sinon, traite-la comme `aucune`.
 - **`Génération d'images : aucune`** : ne génère rien. Dis-le en une ligne, propose une carte ou un carrousel à la place (`carte-linkedin`, `carrousel-linkedin`), et rappelle que l'étape 8 de l'onboarding se rejoue avec « configure la génération d'images ».
 - **`Consentement visage`** qui ne commence pas par `oui` : demande le consentement avant toute image avec ses photos, et note la réponse.
-- **Photos** : `assets/moi/face.jpg`, `profil-gauche.jpg`, `profil-droit.jpg` (`.jpeg` et `.png` acceptés). Si elles manquent mais que d'anciens noms existent (`visage-1.jpeg`, `visage-1.png`…), utilise-les et propose de les renommer. S'il n'y a aucune photo, dis-le et propose soit d'en déposer, soit une scène sans visage.
+- **Photos** : `assets/moi/face.jpg`, `nez-a-gauche.jpg`, `nez-a-droite.jpg` (`.jpeg` et `.png` acceptés). Si elles manquent mais que d'anciens noms existent (`visage-1.jpeg`, `visage-1.png`…), utilise-les et propose de les renommer. S'il n'y a aucune photo, dis-le et propose soit d'en déposer, soit une scène sans visage.
 - **Génération payante** : chaque image coûte quelques centimes (Google) ou des crédits (connecteur). Annonce-le avant la première génération de la session et attends un accord. Les éditions suivantes de la même image n'ont pas besoin d'un nouvel accord.
 
 ## Doctrine de marque (personal branding pur)
@@ -40,8 +40,8 @@ Le modèle copie l'angle du visage qu'il voit. Choisis l'Image 1 d'après l'orie
 | Dans la scène, la personne… | Image 1 | Image 2 (facultative) |
 |---|---|---|
 | fait face au lecteur, regarde la caméra | `face.jpg` | un profil |
-| regarde ou avance vers la gauche du cadre | `profil-gauche.jpg` | `face.jpg` |
-| regarde ou avance vers la droite du cadre | `profil-droit.jpg` | `face.jpg` |
+| regarde ou avance vers la gauche du cadre | `nez-a-gauche.jpg` | `face.jpg` |
+| regarde ou avance vers la droite du cadre | `nez-a-droite.jpg` | `face.jpg` |
 | est vue de trois quarts | le profil du bon côté | `face.jpg` |
 
 **Corriger la référence bat corriger le prompt.** Un selfie pris à bout de bras élargit le visage (effet grand-angle) et le modèle l'extrapole au corps entier dans un plan large. Si le rendu épaissit la personne, change de photo de référence avant de toucher au prompt. Recadrer une photo est permis, l'étirer ou la compresser jamais.
@@ -96,7 +96,7 @@ Ratio <4:5 portrait feed | 1:1 | 16:9>. <Fond, lisibilité en miniature.>
 ```bash
 python3 scripts/gen-image.py --slug <slug> \
   --prompt-file outputs/images/prompts/AAAA-MM-JJ-<slug>.txt \
-  --ref assets/moi/face.jpg assets/moi/profil-droit.jpg \
+  --ref assets/moi/face.jpg assets/moi/nez-a-droite.jpg \
   --aspect 4:5 --size 2K
 ```
 

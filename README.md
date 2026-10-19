@@ -49,7 +49,7 @@ Ten steps, one question at a time. You can skip a step, stop, and pick up later 
 4. **Your voice, played back**: 3 real hooks that worked, your best registers, your writing tics. You correct, then it writes your editorial identity (`voice/identite-editoriale.md`) and your winning recipe (`profile/recette.md`).
 5. **Your audience**: five questions (who, their problem, what they read, what makes them hesitate, what they should do after reading), written to `profile/cible.md`.
 6. **Your visual style**: from the visuals of your best-performing posts (fetched at step 3) and/or 3-4 post visuals you like, in `assets/references-visuelles/` → `profile/style-visuel.md`.
-7. **Your 3 photos**: one front-facing, one left profile, one right profile, in `assets/moi/`. The agent checks each one, asks again if it won't work, and asks for your consent.
+7. **Your 3 photos**: one front-facing (`face.jpg`), one with your nose pointing to the left edge of the picture (`nez-a-gauche.jpg`), one with your nose pointing to the right edge (`nez-a-droite.jpg`), in `assets/moi/`. iPhone `.heic` photos are converted for you. The agent checks each one, asks again if it won't work, and asks for your consent.
 8. **Image generation**, three routes:
    - **Google AI Studio key** (Nano Banana 2.1), the most integrated;
    - **a connector already plugged into Claude: Magnific or Higgsfield**. Want to try Magnific? Here's the template author's referral link: [referral.magnific.com/mzV9vem](https://referral.magnific.com/mzV9vem);

@@ -46,7 +46,7 @@ Ces fichiers font foi. En cas de doute sur un mot, une couleur, un angle, on y r
 
 ## Doctrine de marque (personal branding pur)
 
-- **La personne au premier plan.** Son visage porte les images générées (`assets/moi/` : `face.jpg`, `profil-gauche.jpg`, `profil-droit.jpg`), uniquement avec son consentement (`Consentement visage` dans `profile/config.md`).
+- **La personne au premier plan.** Son visage porte les images générées (`assets/moi/` : `face.jpg`, `nez-a-gauche.jpg`, `nez-a-droite.jpg`), uniquement avec son consentement (`Consentement visage` dans `profile/config.md`).
 - **Mise en page selon `profile/style-visuel.md`**, déduit à l'onboarding des visuels que la personne aime. Le template **n'impose aucun cadre** (liseré, titre haut, signature).
 - **Un seul accent de marque** (`profile/config.md`). Jamais de salade de couleurs.
 - **Pas de personnage compagnon ni de marque secondaire.** C'est la personne, sa voix, son visage.

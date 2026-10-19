@@ -7,10 +7,12 @@ Ce dossier sert à deux choses : te mettre en scène dans les images générées
 | Fichier | Ce qu'on voit | Sert à |
 |---|---|---|
 | `face.jpg` | Toi de face, regard caméra | Scènes où tu fais face au lecteur, avatar de signature |
-| `profil-gauche.jpg` | Ton profil, nez tourné vers la gauche de l'image (de trois quarts à profil complet) | Scènes où tu regardes vers la gauche du cadre |
-| `profil-droit.jpg` | Ton profil, nez tourné vers la droite de l'image | Scènes où tu regardes vers la droite du cadre |
+| `nez-a-gauche.jpg` | Toi de trois quarts ou de profil, le nez pointé vers le bord gauche de la photo | Scènes où tu regardes vers la gauche du cadre |
+| `nez-a-droite.jpg` | Toi de trois quarts ou de profil, le nez pointé vers le bord droit de la photo | Scènes où tu regardes vers la droite du cadre |
 
-`.jpeg` et `.png` sont acceptés. L'agent choisit la photo dont l'orientation colle à la scène : c'est ce qui donne un visage ressemblant.
+Le nom dit ce qu'on voit **sur la photo**, pas le côté de ton visage : regarde l'image et demande-toi de quel côté pointe ton nez.
+
+`.jpeg` et `.png` sont acceptés. Les photos d'iPhone en `.heic` aussi : l'agent les convertit en `.jpg`. L'agent choisit la photo dont l'orientation colle à la scène : c'est ce qui donne un visage ressemblant.
 
 **Ce qui marche** : une seule personne, visage net et assez grand (au moins un tiers de la hauteur de la photo), lumière du jour de face ou de côté, expression naturelle, fond simple. Une photo de téléphone suffit.
 

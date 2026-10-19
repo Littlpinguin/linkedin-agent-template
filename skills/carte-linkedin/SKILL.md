@@ -23,7 +23,7 @@ Le template **n'impose aucun gabarit**. La signature visuelle de la personne vie
 - Si son style ne porte pas de signature → n'en ajoute pas.
 - Si `profile/style-visuel.md` est encore un gabarit (style non défini) → propose 2-3 options de composition à la personne et demande laquelle elle préfère, plutôt que d'imposer.
 
-La personne reste le sujet (son visage, via `image-linkedin` ou une de ses photos de `assets/moi/` : `face`, `profil-gauche`, `profil-droit` en `.jpg`, `.jpeg` ou `.png`, ou les anciens `visage-*`), sauf si son style privilégie autre chose (typo seule, capture, illustration). Si `Génération d'images` vaut `aucune` dans `profile/config.md`, compose avec ses vraies photos.
+La personne reste le sujet (son visage, via `image-linkedin` ou une de ses photos de `assets/moi/` : `face`, `nez-a-gauche`, `nez-a-droite` en `.jpg`, `.jpeg` ou `.png`, ou les anciens `visage-*`), sauf si son style privilégie autre chose (typo seule, capture, illustration). Si `Génération d'images` vaut `aucune` dans `profile/config.md`, compose avec ses vraies photos.
 
 ## Environnement restreint
 
