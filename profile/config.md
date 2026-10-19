@@ -20,7 +20,8 @@ Version de l'onboarding : 2
 - [ ] 7. Tes 3 photos
 - [ ] 8. Génération d'images
 - [ ] 9. Ta veille
-- [ ] 10. Fin et premier post
+- [ ] 10. Publication et résultats
+- [ ] 11. Fin et premier post
 
 ## Identité
 - Prénom :
@@ -51,6 +52,10 @@ Version de l'onboarding : 2
 - Mention « Visuel généré par IA » :  oui   # oui | non ; le sidecar JSON trace l'usage de l'IA dans tous les cas
 - Consentement visage :               # oui (date) ; sans oui, aucune image générée avec tes photos
 - Photos de référence :               # face.jpg, nez-a-gauche.jpg, nez-a-droite.jpg (ou anciens noms)
+- Publication :                       # zernio | manuelle
+- Comptes de publication :            # id Zernio du profil (et de la page), voir `python3 scripts/zernio.py comptes`
+- Créneaux de publication :           # ex. mardi 8 h, Europe/Paris
+- Bilan :                             # mensuel (voie et jour) | à la demande
 
 ## Garde-fous
 - Sujets / angles interdits (au-delà de la liste anti-IA universelle) :
