@@ -41,6 +41,8 @@ def main():
     ap.add_argument("--prompt-file", required=True)
     ap.add_argument("--ref", nargs="*", default=[], help="images de référence (chemins relatifs au repo)")
     ap.add_argument("--aspect", default="16:9")
+    ap.add_argument("--size", choices=["1K", "2K", "4K"], default=None,
+                    help="résolution (Nano Banana 2.1) ; 2K pour qu'un visage reste net dans un plan large")
     args = ap.parse_args()
 
     env = load_env()
@@ -62,7 +64,7 @@ def main():
         "contents": [{"parts": parts}],
         "generationConfig": {
             "responseModalities": ["IMAGE"],
-            "imageConfig": {"aspectRatio": args.aspect},
+            "imageConfig": {"aspectRatio": args.aspect, **({"imageSize": args.size} if args.size else {})},
         },
     }
     r = requests.post(url, params={"key": api_key}, json=payload, timeout=180)
@@ -91,11 +93,13 @@ def main():
         "generated_at": datetime.datetime.utcnow().isoformat() + "Z",
         "model": model,
         "aspect_ratio": args.aspect,
+        "image_size": args.size or "1K",
         "reference_images": args.ref,
         "full_prompt_sent": prompt,
         "brand_guidelines_version": "voice/identite-editoriale.md",  # rempli à l'onboarding
+        "ai_disclosure": "Généré par IA (Nano Banana 2.1)",
     }, ensure_ascii=False, indent=2))
-    # journal unifié — toujours sous linkedin-agent/outputs/registry.csv
+    # journal unifié, toujours sous outputs/registry.csv
     reg = journal.log(
         kind="image",
         slug=args.slug,
@@ -105,7 +109,7 @@ def main():
         refs=" | ".join(args.ref),
         ai_disclosure="Généré par IA (Nano Banana 2.1)",
         status="brut",
-        notes=f"aspect {args.aspect}",
+        notes=f"aspect {args.aspect}, taille {args.size or '1K'}",
     )
 
     print(f"OK → {png_path}")

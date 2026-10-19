@@ -189,6 +189,8 @@ Every sentence same length. Every paragraph same number of sentences. Perfectly 
 
 Real writing breathes unevenly. Short. Then longer. Then a fragment. Then a 30-word sentence that earns its length.
 
+On an anaphora or parallel-clause passage (same word or structure repeated across a list), break each clause onto its own line instead of stacking them with commas in one paragraph. One clause, one line, when building rhythm toward a point. Confirmed on a real edit: "We do this. / We do that. / We do the other thing." reads stronger stacked than as one comma-separated sentence.
+
 ### 4J. Copulative avoidance
 
 AI replaces "is" and "has" with bloated alternatives: "serves as," "stands as," "represents," "marks a," "holds the distinction of being."

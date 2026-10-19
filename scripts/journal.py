@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
-"""Journal unifié de toutes les productions visuelles du linkedin-agent.
+"""Journal unifié de toutes les productions de l'agent (posts et visuels).
 
-Une seule ligne par production (image générée, carte composée, carrousel exporté),
-toujours écrite dans linkedin-agent/outputs/registry.csv. Tout reste sous linkedin-agent.
+Une ligne par production ou par changement d'état (post validé, image générée,
+carte composée, carrousel exporté), toujours écrite dans outputs/registry.csv.
+
+Statuts, dans l'ordre : brut → à valider → validé → programmé → publié.
+À chaque changement d'état, rejoue le script avec le même slug : la dernière ligne
+d'un slug fait foi. C'est ce qui permet de répondre à « qu'est-ce qui est déjà sorti ? ».
 
 Usage CLI :
     python3 scripts/journal.py --kind carte --slug mon-post \
         --output outputs/carte-mon-post/carte.png --source outputs/carte-mon-post/index.html
+    python3 scripts/journal.py --kind post --slug mon-post \
+        --output outputs/post-mon-post-2026-01-15/post.md --status publié
 
 Usage import (depuis un autre script du dossier scripts/) :
     import journal
@@ -60,14 +66,14 @@ def log(kind, slug, output, source="", model="", refs="",
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--kind", required=True, help="image | carte | carrousel")
+    ap.add_argument("--kind", required=True, help="post | image | carte | carrousel")
     ap.add_argument("--slug", required=True)
     ap.add_argument("--output", required=True)
     ap.add_argument("--source", default="")
     ap.add_argument("--model", default="")
     ap.add_argument("--refs", default="")
     ap.add_argument("--ai-disclosure", default="")
-    ap.add_argument("--status", default="")
+    ap.add_argument("--status", default="", help="brut | à valider | validé | programmé | publié")
     ap.add_argument("--notes", default="")
     a = ap.parse_args()
     reg = log(a.kind, a.slug, a.output, a.source, a.model, a.refs,

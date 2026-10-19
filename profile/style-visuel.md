@@ -1,4 +1,4 @@
-# Style visuel — [GABARIT À REMPLIR]
+# Style visuel : [GABARIT À REMPLIR]
 
 > Réécrit par la skill `onboarding` à partir de 3-4 visuels de posts que la personne aime
 > (`assets/references-visuelles/`). Les skills visuelles (`carte-linkedin`,

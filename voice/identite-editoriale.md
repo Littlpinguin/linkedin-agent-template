@@ -1,4 +1,4 @@
-# Identité éditoriale — [GABARIT À REMPLIR]
+# Identité éditoriale : [GABARIT À REMPLIR]
 
 > **Ce fichier est un gabarit.** Il sera entièrement réécrit par la skill `onboarding`,
 > à partir de l'analyse de tes vrais posts LinkedIn et de ton site. Tant qu'il porte la
@@ -9,7 +9,8 @@
 > performants, ta cadence), pas des généralités. Les indications entre crochets disent
 > quoi mettre.
 
-Document de référence pour mes prises de parole : LinkedIn, blog, et mon copilot marketing. Positionnement, voix, angles, registres.
+Document de référence pour mes prises de parole sur LinkedIn. Positionnement, voix, angles, registres.
+Les chiffres et les exemples qui prouvent ce qui marche sont dans `profile/recette.md` ; la cible détaillée dans `profile/cible.md`.
 
 Dernière mise à jour : [date de l'onboarding].
 
@@ -63,13 +64,13 @@ Toujours : jamais de tiret cadratin, pas de majuscule après deux-points sauf no
 
 ## 5. Audience et registres
 
-**Cible prioritaire :** [pour qui j'écris, dans quel état d'esprit. Repris de profile/config.md.]
+**Cible prioritaire :** [pour qui j'écris, dans quel état d'esprit, en deux lignes. Détail dans profile/cible.md.]
 
 Mes registres réels, vus dans mes derniers posts, du plus performant au plus discret :
 
 [Liste classée des registres qui marchent pour moi (opinion, contre-pied, retex,
-pédagogique, personnel, annonces…), chacun avec ce qui le caractérise et son niveau de
-performance observé dans l'export. C'est le cœur de l'analyse du .xls.]
+pédagogique, personnel, annonces…), chacun avec ce qui le caractérise. Le classement chiffré
+et les outliers sont dans profile/recette.md.]
 
 ---
 
@@ -89,4 +90,4 @@ des cartes et carrousels.]
 ## 8. Idées de posts pour décliner les piliers
 
 [Quelques angles prêts à creuser, alignés sur mes registres qui marchent.
-Générés à l'onboarding comme amorce, à enrichir ensuite.]
+Générés à l'onboarding comme amorce. Les idées fraîches de chaque semaine arrivent par la veille (veille/).]

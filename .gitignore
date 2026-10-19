@@ -9,5 +9,14 @@ __pycache__/
 .DS_Store
 Icon?
 
-# Sorties générées (images, carrousels) — régénérables
+# Sorties générées (images, carrousels), régénérables
 outputs/
+
+# Tes photos ne partent jamais dans un dépôt, même privé
+assets/moi/*
+!assets/moi/README.md
+!assets/moi/.gitkeep
+
+# Espace de travail des plans d'implémentation (specs et plans vivent hors du dépôt public)
+.superpowers/
+docs/superpowers/
