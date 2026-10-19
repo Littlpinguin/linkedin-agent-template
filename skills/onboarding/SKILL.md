@@ -101,9 +101,9 @@ But : récupérer de 30 à 100 de ses posts, idéalement avec leurs chiffres d'e
 
 1. **Apify, piloté par l'agent (recommandé).** Elle crée un compte sur apify.com (des crédits sont offerts à l'inscription), copie son jeton personnel (*Settings > API & Integrations*) dans `.env` à la ligne `APIFY_TOKEN=`, et dit « c'est fait ». Tu lances :
    ```bash
-   python3 scripts/scrape-linkedin-posts.py --profile <URL du profil> --max 100
+   python3 scripts/scrape-linkedin-posts.py --profile <URL du profil> --max 100 --visuels
    ```
-   Le script écrit `outputs/onboarding/posts.csv` (date, texte, likes, commentaires, partages, URL). Permet : l'engagement, donc le classement de ce qui marche. Ne permet pas : la gratuité au-delà des crédits offerts (de l'ordre de 1,50 à 2 $ les 1 000 posts au moment de l'écriture de ce template). À utiliser sur son propre profil, dans le respect des conditions de LinkedIn. Si le script échoue, reprends son message en clair, explique-le, et propose la voie 2 ou 3.
+   Le script écrit `outputs/onboarding/posts.csv`, du plus récent au plus ancien (date, texte, likes, commentaires, partages, URL, `format`, `nb_visuels`, `visuels`), le JSON complet d'Apify à côté (`posts-brut.json`), et, avec `--visuels`, les images, les pages des carrousels et les miniatures de vidéos dans `outputs/onboarding/visuels/` (gratuit, de l'ordre de 10 Mo pour 20 posts). Il affiche aussi son titre LinkedIn : propose-le comme titre de signature (`profile/config.md`, § 7 de l'identité éditoriale), elle confirme ou corrige. Les liens des visuels expirent sous quelques jours : pour les récupérer après coup sans repayer, `--dernier-lancement --visuels` relit le dernier lancement. Permet : l'engagement et le format de chaque post, donc le classement de ce qui marche. Ne permet pas : la gratuité au-delà des crédits offerts (de l'ordre de 1,50 à 2 $ les 1 000 posts au moment de l'écriture de ce template). À utiliser sur son propre profil, dans le respect des conditions de LinkedIn. Si le script échoue, reprends son message en clair, explique-le, et propose la voie 2 ou 3.
 2. **Export officiel LinkedIn (gratuit).** *Préférences > Confidentialité des données > Obtenir une copie de vos données > Publications*. LinkedIn envoie un lien par e-mail, de quelques minutes à 24 h. Elle dépose le fichier (`Shares.csv` ou un `.xlsx`) dans le dossier et te donne le chemin. Permet : tous ses posts, gratuitement. Ne permet pas : les likes et commentaires. Si l'attente est longue, propose de passer aux étapes 5 à 9 et de revenir ici ensuite.
 3. **Copier-coller (gratuit).** Elle colle au moins 15 posts, de préférence ceux qui ont le mieux marché, avec leurs likes si elle les connaît. Permet : démarrer tout de suite. Ne permet pas : un échantillon représentatif.
 
@@ -120,7 +120,7 @@ Analyse les posts et note tout dans `outputs/onboarding/analyse-style.md` :
 - **Les accroches** : comment elle ouvre (affirmation + deux-points, question, contre-pied, chiffre). 3 à 5 vraies accroches citées mot pour mot.
 - **Les registres** : opinion, contre-pied, retex, pédagogique, personnel, annonces… classés par performance.
 - **Cadence et voix** : longueur des phrases et paragraphes, « je »/« vous », manière de chiffrer, clôtures, ponctuation, emojis.
-- **Les formats** : texte seul, image, carrousel, capture, vidéo.
+- **Les formats** : texte seul, image, carrousel, vidéo, lien, citation. Avec la colonne `format` du CSV Apify, donne la médiane d'engagement par format et le nombre de posts derrière chaque médiane (un format vu 2 fois ne permet pas de conclure). Sans elle (export LinkedIn, copier-coller), classe à l'œil.
 - **Le vocabulaire signature**, et **les tics** (dont ceux de la liste noire de `voice/anti-ai-writing-style.md` qu'elle utilise déjà).
 
 **Montre-lui une synthèse courte avant d'écrire quoi que ce soit** : 3 accroches qui ont marché, ses 2 ou 3 registres les plus forts, 2 ou 3 tics repérés. Demande ce qui sonne faux ou manque. Intègre ses corrections.
@@ -146,7 +146,7 @@ Sorties : `profile/cible.md` (en remplaçant le gabarit), `Cible prioritaire`, `
 
 ## Étape 6 : ton style visuel
 
-Elle dépose 3 ou 4 visuels de posts qu'elle aime dans `assets/references-visuelles/`. **Regarde** chaque image et cherche ce qui revient de l'une à l'autre :
+Si `outputs/onboarding/visuels/` existe (étape 3 avec `--visuels`), commence par là : **regarde** les visuels de ses 3 ou 4 posts les plus performants (pour un carrousel, `page-01` suffit), propose-les comme références et copie dans `assets/references-visuelles/` ceux qu'elle garde. Elle peut en ajouter d'autres qu'elle admire, ou tout remplacer. Sinon, elle dépose 3 ou 4 visuels de posts qu'elle aime dans `assets/references-visuelles/`. **Regarde** chaque image et cherche ce qui revient de l'une à l'autre :
 - archétype de composition (plein cadre photo, carte à marges, texte sur aplat, collage, graphique minimal) ;
 - cadre et marges (si elle n'aime pas les cadres, note-le pour qu'aucun liseré ne soit forcé) ;
 - titre (placement, typo, fond derrière le texte) ;

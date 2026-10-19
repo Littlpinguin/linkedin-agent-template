@@ -43,12 +43,12 @@ Ten steps, one question at a time. You can skip a step, stop, and pick up later 
 1. **Welcome and setup check**: what's coming, what to have at hand, and a silent check of Python, Playwright and network access.
 2. **You and your business**: your LinkedIn profile URL and website, analyzed for offer, audience and tone.
 3. **Your past posts**, three routes:
-   - **Apify, driven by the agent (recommended)**: you paste your Apify token into `.env`, the agent runs `scripts/scrape-linkedin-posts.py` and gets text + likes + comments + shares. The only route with engagement data. Free credits on sign-up, then paid per post. Only on your own profile, within LinkedIn's terms.
+   - **Apify, driven by the agent (recommended)**: you paste your Apify token into `.env`, the agent runs `scripts/scrape-linkedin-posts.py` and gets text + likes + comments + shares + the format of each post (text, image, carousel, video, link), plus your post visuals (images, carousel pages, video thumbnails) downloaded for free from LinkedIn. The only route with engagement and format data. Free credits on sign-up, then paid per post. Only on your own profile, within LinkedIn's terms.
    - **LinkedIn's official export** (free): *Settings → Data privacy → Get a copy of your data → Posts*. No engagement data, can take up to 24 h.
    - **Copy-paste** 15+ posts (free).
 4. **Your voice, played back**: 3 real hooks that worked, your best registers, your writing tics. You correct, then it writes your editorial identity (`voice/identite-editoriale.md`) and your winning recipe (`profile/recette.md`).
 5. **Your audience**: five questions (who, their problem, what they read, what makes them hesitate, what they should do after reading), written to `profile/cible.md`.
-6. **Your visual style**: from 3-4 post visuals you like, dropped in `assets/references-visuelles/` → `profile/style-visuel.md`.
+6. **Your visual style**: from the visuals of your best-performing posts (fetched at step 3) and/or 3-4 post visuals you like, in `assets/references-visuelles/` → `profile/style-visuel.md`.
 7. **Your 3 photos**: one front-facing, one left profile, one right profile, in `assets/moi/`. The agent checks each one, asks again if it won't work, and asks for your consent.
 8. **Image generation**, three routes:
    - **Google AI Studio key** (Nano Banana 2.1), the most integrated;
