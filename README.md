@@ -1,10 +1,10 @@
-# LinkedIn agent for Claude Code: posts in your voice, visuals, weekly topic ideas
+# LinkedIn agent for Claude Code: topic ideas, posts in your voice, visuals, scheduling and results
 
 ![LinkedIn agent template for Claude Code: real posts and visuals made with it](docs/social-preview.jpg)
 
-**A personal LinkedIn agent template for Claude Code / Cowork.** You open it, type `start`, and a guided 30-minute onboarding calibrates it on *you*: it fetches your past posts to learn your voice and what performs, sets up your audience and visual style, takes 3 photos of you to put you in custom images, connects an image generator, and installs a weekly content watch that brings you topic ideas without you asking.
+**A personal LinkedIn agent template for Claude Code / Cowork.** You open it, type `start`, and a guided 30-minute onboarding calibrates it on *you*: it fetches your past posts to learn your voice and what performs, sets up your audience and visual style, takes 3 photos of you to put you in custom images, connects an image generator, installs a weekly content watch that brings you topic ideas without you asking, and connects scheduling and analytics.
 
-After that, it writes posts that sound like you and produces the visuals to go with them (AI images with you in the scene, cards, carousels).
+After that, it covers the whole loop: it finds the topic, writes posts that sound like you, produces the visuals (AI images with you in the scene, cards, carousels), schedules them on LinkedIn, then reads the results every month to adjust what you post and when.
 
 ## What it makes: real posts
 
@@ -69,7 +69,7 @@ Keep that repo **private**: once configured, it describes you (voice, audience, 
 
 ## What the onboarding does
 
-Ten steps, one question at a time. You can skip a step, stop, and pick up later (`resume`): progress is saved in `profile/config.md`. For every tool, the agent offers three routes, including a free one, and says what each can and can't do.
+Eleven steps, one question at a time. You can skip a step, stop, and pick up later (`resume`): progress is saved in `profile/config.md`. For every tool, the agent offers three routes, including a free one, and says what each can and can't do.
 
 1. **Welcome and setup check**: what's coming, what to have at hand, and a silent check of Python, Playwright and network access.
 2. **You and your business**: your LinkedIn profile URL and website, analyzed for offer, audience and tone.
@@ -88,13 +88,14 @@ Ten steps, one question at a time. You can skip a step, stop, and pick up later 
 
    A paid test image only runs if you say yes.
 9. **Your content watch**: the agent suggests axes and real sources for your niche, runs a first watch live (5 sourced topic ideas), then schedules it weekly: a scheduled task in the Claude app, a Claude Code cloud routine (needs a private GitHub repo), or n8n.
-10. **Wrap-up**: a 5-line recap, then "Shall we write your first post?"
+10. **Scheduling and results** with [Zernio](https://zernio.com) (first 2 connected accounts free; a profile and a page count as 2): the agent schedules each approved post with its visual (image, video or carousel PDF), never publishes without your yes, and reads impressions, reach, reactions, comments, shares and saves of every post it publishes (on a personal profile, LinkedIn only shares these for posts published through Zernio or imported one by one by URL). Or keep publishing by hand.
+11. **Wrap-up**: a 6-line recap, then "Shall we write your first post?"
 
 ## Requirements
 
 - **Claude Code** (desktop app or terminal) or **Cowork**.
 - **Python 3** with `python3 -m pip install requests` (post fetching, image generation) and `python3 -m pip install playwright && python3 -m playwright install chromium` (cards and carousels). `pdftoppm` (poppler, `brew install poppler`) for print-sharp carousel PDFs.
-- **Optional keys** in `.env` (copy `.env.example`): `APIFY_TOKEN`, `GOOGLE_AI_API_KEY`. Never paste a key into the chat: write it in `.env` and tell the agent "done".
+- **Optional keys** in `.env` (copy `.env.example`): `APIFY_TOKEN`, `GOOGLE_AI_API_KEY`, `ZERNIO_API_KEY`. Never paste a key into the chat: write it in `.env` and tell the agent "done".
 - **In a restricted environment** (Cowork, sandbox without network): Apify, Google generation and Chromium may fail. The onboarding detects it and uses LinkedIn's export or copy-paste, an image connector, and HTML cards to open in your browser.
 
 ## The production chain (after setup)
@@ -103,7 +104,9 @@ Ten steps, one question at a time. You can skip a step, stop, and pick up later 
 2. **Write**: `my-viral-post` proposes angles in your voice, from your recipe and your last 5 approved posts, assembles the post, tells you which visual to attach, and logs it.
 3. **Illustrate**: `image-linkedin` puts you in the scene (remixed reference, meme), picking the photo whose angle matches the scene.
 4. **Compose and export**: `carte-linkedin` (PNG 1080×1350) or `carrousel-linkedin` (rasterized PDF, sharp in every viewer).
-5. **Track**: every post and visual goes into `outputs/registry.csv` with a status: draft → to review → approved → scheduled → published.
+5. **Schedule**: once you approve text, visual and time slot, `my-viral-post` schedules it through `scripts/zernio.py`. Nothing is ever published right away.
+6. **Measure**: `bilan-performance` reads the results every month, compares them to your recipe, and proposes 3 decisions (keep, stop, test) plus updated recipe, time slots and watch topics, applied only with your yes.
+7. **Track**: every post and visual goes into `outputs/registry.csv` with a status: draft → to review → approved → scheduled → published.
 
 ## Structure
 
@@ -111,12 +114,13 @@ Ten steps, one question at a time. You can skip a step, stop, and pick up later 
 linkedin-agent-template/
 ├── CLAUDE.md                    ← the orchestrator (rules, onboarding trigger, unread watch)
 ├── skills/
-│   ├── onboarding/              ← 10-step guided setup, resumable, upgrades v1 agents
+│   ├── onboarding/              ← 11-step guided setup, resumable, upgrades v1 agents
 │   ├── veille-contenu/          ← weekly content watch (parallel sub-agents, anti-repeat journal)
 │   ├── my-viral-post/           ← writes the post (text)
 │   ├── image-linkedin/          ← you in AI images (Google key or Magnific / Higgsfield connector)
 │   ├── carte-linkedin/          ← single-image card / infographic (HTML→PNG)
-│   └── carrousel-linkedin/      ← multipage carousel (HTML→PDF), source of design tokens
+│   ├── carrousel-linkedin/      ← multipage carousel (HTML→PDF), source of design tokens
+│   └── bilan-performance/       ← monthly results review: 3 decisions, recipe and slots adjusted
 ├── voice/
 │   ├── identite-editoriale.md   ← YOUR voice (written during onboarding)
 │   ├── anti-ai-writing-style.md ← universal anti-AI writing rules
@@ -129,6 +133,7 @@ linkedin-agent-template/
 │   ├── veille.md                ← your watch: axes, sources, schedule
 │   └── style-visuel.md          ← YOUR visual style
 ├── veille/                      ← dated watch reports + anti-repeat journal (versioned)
+├── bilans/                      ← results snapshots and monthly reviews (versioned)
 ├── assets/
 │   ├── moi/                     ← your 3 photos (excluded from git)
 │   ├── marque/                  ← your kit (logo, fonts, icons), optional
@@ -136,7 +141,7 @@ linkedin-agent-template/
 │   ├── visuels-generes/         ← raw AI images (TONE reference)
 │   └── visuels-posts/           ← finished posts (COMPOSITION reference)
 ├── scripts/                     ← scrape-linkedin-posts.py, gen-image.py, screenshot.py,
-│                                  export-carousel-pdf.py, journal.py
+│                                  export-carousel-pdf.py, journal.py, zernio.py
 ├── templates/                   ← carousel-linkedin-base.html
 ├── docs/                        ← template design notes
 └── .env.example                 ← optional keys (Apify, Google)

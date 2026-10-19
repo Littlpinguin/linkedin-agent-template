@@ -1,6 +1,6 @@
 ---
 name: onboarding
-description: Accompagne pas à pas une nouvelle personne pour calibrer son agent LinkedIn en une séance d'environ 30 minutes, reprenable à tout moment. Récupère ses anciens posts (Apify piloté par l'agent, export LinkedIn ou copier-coller) pour régler ton et style éditorial, configure sa cible, son style visuel, ses 3 photos (de face, nez vers la gauche, nez vers la droite), son moyen de générer des images (clé Google, connecteur Magnific ou Higgsfield, ou rien), et installe une veille de contenu hebdomadaire automatisée qui lui propose des idées de sujets. À déclencher à la première ouverture du template, quand la personne dit "commencer", "démarrer", "configurer", "on commence", "setup", "start", "begin", "let's go", "reprendre", "continuer l'onboarding" (ou l'équivalent dans une autre langue), ou ouvre le dossier sans autre consigne ALORS QUE profile/config.md porte "STATUT: NON CONFIGURÉ". Aussi en mode mise à niveau quand l'agent est configuré sans la section "Progression de l'onboarding" ou avec cette section entièrement décochée (version 1 du template, mise à jour ou non par git pull), ou quand elle demande "mets à jour mon agent", "configure mon style visuel", "configure mes photos", "configure la génération d'images", "configure ma veille", "recalibre ma voix", "recalibre ma recette". Ne relance pas un onboarding complet sur un agent déjà configuré sans confirmation explicite.
+description: Accompagne pas à pas une nouvelle personne pour calibrer son agent LinkedIn en une séance d'environ 30 minutes, reprenable à tout moment. Récupère ses anciens posts (Apify piloté par l'agent, export LinkedIn ou copier-coller) pour régler ton et style éditorial, configure sa cible, son style visuel, ses 3 photos (de face, nez vers la gauche, nez vers la droite), son moyen de générer des images (clé Google, connecteur Magnific ou Higgsfield, ou rien), installe une veille de contenu hebdomadaire automatisée qui lui propose des idées de sujets, et branche la programmation des posts et le suivi de leurs résultats (Zernio, ou à la main). À déclencher à la première ouverture du template, quand la personne dit "commencer", "démarrer", "configurer", "on commence", "setup", "start", "begin", "let's go", "reprendre", "continuer l'onboarding" (ou l'équivalent dans une autre langue), ou ouvre le dossier sans autre consigne ALORS QUE profile/config.md porte "STATUT: NON CONFIGURÉ". Aussi en mode mise à niveau quand l'agent est configuré sans la section "Progression de l'onboarding" ou avec cette section entièrement décochée (version 1 du template, mise à jour ou non par git pull), ou quand elle demande "mets à jour mon agent", "configure mon style visuel", "configure mes photos", "configure la génération d'images", "configure ma veille", "configure la publication", "recalibre ma voix", "recalibre ma recette". Ne relance pas un onboarding complet sur un agent déjà configuré sans confirmation explicite.
 ---
 
 # onboarding : calibrer l'agent sur la personne, pas à pas
@@ -14,13 +14,13 @@ Beaucoup de personnes qui ouvrent ce template ne sont pas techniciennes. Parle s
 1. **Progression sauvegardée.** La section `## Progression de l'onboarding` de `profile/config.md` a une case par étape. Coche une case (`- [x]`) dès que le fichier de sortie de l'étape est écrit, et mets à jour `Étape en cours :`. Une étape sautée reste `- [ ]` et prend la mention « (sautée) ».
 2. **Reprise.** À chaque déclenchement, relis cette section. S'il y a déjà des cases cochées, résume en deux lignes ce qui est fait, puis reprends à la première case vide.
 3. **Trois voies par outil**, dont une gratuite. Pour chacune, dis en une phrase ce qu'elle permet **et** ce qu'elle ne permet pas. Recommande-en une, laisse choisir.
-4. **Toute étape se saute**, sauf la 2 (le minimum pour que l'agent sache qui il sert). Une étape sautée est reproposée une fois en fin de parcours, puis une fois en début de session suivante, sans insister. Une étape **refusée** par choix (elle ne veut pas de photos, pas de veille…) prend la mention « (refusée) » et n'est plus jamais reproposée : seule elle peut la relancer, avec la phrase de l'étape 10. Une étape faite sur une matière mince prend « (base prudente) » : cochée, elle se repropose une fois en fin de parcours, comme une étape sautée.
+4. **Toute étape se saute**, sauf la 2 (le minimum pour que l'agent sache qui il sert). Une étape sautée est reproposée une fois en fin de parcours, puis une fois en début de session suivante, sans insister. Une étape **refusée** par choix (elle ne veut pas de photos, pas de veille…) prend la mention « (refusée) » et n'est plus jamais reproposée : seule elle peut la relancer, avec la phrase de l'étape 11. Une étape faite sur une matière mince prend « (base prudente) » : cochée, elle se repropose une fois en fin de parcours, comme une étape sautée.
 5. **Les secrets ne passent jamais par le chat.** Pour une clé ou un jeton : crée `.env` à partir de `.env.example` s'il n'existe pas (`[ -f .env ] || cp .env.example .env`, jamais un `cp` nu qui écraserait les clés déjà remplies), dis quelle ligne remplir et ouvre-lui le fichier (`open -e .env` sur Mac : `.env` est un fichier caché, introuvable dans le Finder sans Cmd+Maj+.), puis attends qu'elle dise « c'est fait ». Pour vérifier, utilise uniquement `grep -c '^NOM_DE_LA_CLE=.' .env` (renvoie 1 si la ligne est remplie, sans afficher la valeur). S'il renvoie 0 après « c'est fait », le fichier n'a pas été enregistré ou ce n'était pas le bon : rouvre-le avec `open -e .env` et demande un Cmd+S. N'affiche jamais le contenu de `.env` (ni `cat`, ni `grep` sans `-c`), ne recopie la valeur nulle part. **Si une clé est collée dans le chat malgré tout** : ne la réécris pas, dis-lui qu'elle est désormais dans l'historique de la conversation, conseille de la révoquer et d'en générer une nouvelle, à mettre dans `.env`.
 6. **Aucune dépense sans accord.** Apify, la génération d'images et certains connecteurs coûtent des crédits. Annonce le coût probable avant de lancer, attends un oui.
 7. **Rien d'inventé.** Chiffres, accroches, clients, goûts visuels : tout vient de l'export, du site, des visuels ou de ses réponses. Si la matière est mince, dis-le et construis une base prudente.
 8. **Voix.** Tout ce que tu écris dans `voice/` et `profile/` respecte `voice/anti-ai-writing-style.md`, et l'identité éditoriale est écrite dans **sa** voix. Si une formule à elle tombe sous une règle de cette liste (une devise, un slogan) et qu'elle tient à la garder, garde-la mot pour mot dans l'identité éditoriale, comme exception nommée, avec sa règle d'usage ; ne fabrique jamais de nouvelle phrase sur le même modèle.
 9. **Ne touche ni à `README.md` ni à `CLAUDE.md`, ni aux scripts, ni aux autres skills.** Toute la personnalisation vit dans `profile/` et `voice/` : le template se met ainsi à jour sans conflit.
-10. **Pas de contenu publié pendant l'onboarding.** Seules exceptions : l'image test de l'étape 8 et la première veille de l'étape 9, qui servent à vérifier que les outils marchent.
+10. **Pas de contenu publié pendant l'onboarding.** Seules exceptions : l'image test de l'étape 8, la première veille de l'étape 9 et le brouillon test de l'étape 10 (jamais publié, supprimé ensuite), qui servent à vérifier que les outils marchent.
 11. **Remplacer un gabarit, c'est réécrire tout le fichier** : titre sans « [GABARIT À REMPLIR] » et sans la note d'en-tête qui l'explique. Un fichier qui garde cette note passe encore pour un gabarit aux yeux des autres skills.
 
 ## Choisir le mode au démarrage
@@ -28,7 +28,7 @@ Beaucoup de personnes qui ouvrent ce template ne sont pas techniciennes. Parle s
 Lis `profile/config.md` :
 
 - **`STATUT: NON CONFIGURÉ`** : onboarding complet, ou reprise s'il y a des cases cochées.
-- **`STATUT: CONFIGURÉ` avec au moins une case cochée dans la section Progression** : l'agent est prêt. Ne relance rien sans confirmation ; propose plutôt l'action ciblée demandée (rejouer une étape : voix, cible, photos, images, veille). S'il reste des étapes « (sautées) », propose-les une fois.
+- **`STATUT: CONFIGURÉ` avec au moins une case cochée dans la section Progression** : l'agent est prêt. Ne relance rien sans confirmation ; propose plutôt l'action ciblée demandée (rejouer une étape : voix, cible, photos, images, veille, publication). S'il reste des étapes « (sautées) », propose-les une fois. Si la section n'a pas de ligne « Publication et résultats » (agent configuré avant son ajout), insère-la en étape 10, renumérote la fin en 11, ajoute les 4 lignes de publication dans `## Outils`, et propose une fois « configure la publication ».
 - **`STATUT: CONFIGURÉ` sans section Progression, ou avec une section Progression où aucune case n'est cochée** (version 1 du template ; le second cas vient d'un `git pull`, qui fusionne la section vide du template dans son `config.md`) : **mode mise à niveau**. Explique en trois lignes ce que la nouvelle version apporte (cible détaillée, 3 photos, génération d'images par clé ou connecteur, veille automatique). Puis :
   1. mets dans `profile/config.md`, sous la ligne `STATUT`, ces deux sections (les étapes 1, 2, 4 et 6 sont déjà faites en version 1). Si `git pull` les a déjà ajoutées, ne les duplique pas : coche les cases et corrige `Étape en cours` à leur place.
      ```
@@ -44,7 +44,8 @@ Lis `profile/config.md` :
      - [ ] 7. Tes 3 photos
      - [ ] 8. Génération d'images
      - [ ] 9. Ta veille
-     - [ ] 10. Fin et premier post
+     - [ ] 10. Publication et résultats
+     - [ ] 11. Fin et premier post
 
      ## Outils
      - Environnement :
@@ -53,10 +54,14 @@ Lis `profile/config.md` :
      - Mention « Visuel généré par IA » :  oui
      - Consentement visage :
      - Photos de référence :
+     - Publication :
+     - Comptes de publication :
+     - Créneaux de publication :
+     - Bilan :
      ```
      Ajoute aussi la ligne `- URL du profil LinkedIn :` dans `## Identité` si elle manque. Si une clé Google est déjà remplie dans `.env` (`grep -c '^GOOGLE_AI_API_KEY=.' .env` renvoie 1), note `Génération d'images : google`.
   2. déplace la recette existante (chiffres, registres classés, accroches, outliers) de `voice/identite-editoriale.md` vers `profile/recette.md`, sans réécrire le reste de l'identité éditoriale (s'il n'y a pas de recette chiffrée à déplacer, ou si `profile/recette.md` manque parce que la mise à jour s'est faite par ZIP, crée-le avec l'en-tête `Base : aucun post analysé` et fais de l'étape 3 la prochaine étape proposée) ;
-  3. propose l'étape 3 en option (récupérer l'engagement via Apify pour affiner la recette), puis joue les étapes 5, 7, 8 et 9 ;
+  3. propose l'étape 3 en option (récupérer l'engagement via Apify pour affiner la recette), puis joue les étapes 5, 7, 8, 9 et 10 ;
   4. pour les photos, si `assets/moi/visage-*` existent (`.jpeg`, `.jpg` ou `.png`), regarde-les et propose de les renommer en `face`, `nez-a-gauche`, `nez-a-droite` selon leur angle, en demandant celles qui manquent ;
   5. **photos déjà dans git** : la version 1 n'excluait pas `assets/moi/`. Lance `git ls-files assets/moi` (si le dossier est un dépôt git). S'il liste des photos, explique qu'elles sont suivies par git et peut-être déjà poussées, propose `git rm --cached assets/moi/<fichier>` pour chacune puis un commit, et préviens que l'historique du dépôt (et toute copie publique) les contient encore : si le dépôt est public, le passer en privé ou le recréer.
 
@@ -215,14 +220,30 @@ Sorties : `## Outils` de `profile/config.md`. Coche l'étape 8.
 
 Sorties : `profile/veille.md` (axes, sources, routine, identifiant de la routine), `veille/journal.md` et le premier rapport. Coche l'étape 9.
 
-## Étape 10 : fin et premier post
+## Étape 10 : publication et résultats
+
+But : qu'un post validé parte à la date choisie sans qu'elle ait à le recopier, puis que l'agent lise ses résultats pour ajuster la stratégie. Deux voies, gratuites toutes les deux :
+
+1. **Zernio (recommandé).** Un service qui programme les posts sur LinkedIn et en lit les statistiques, piloté par `scripts/zernio.py`. Permet : programmer texte et visuel (image, vidéo, carrousel PDF) sur son profil et, si elle en a une, sa page entreprise ; lire les impressions, la portée, les réactions, commentaires, partages et enregistrements des posts qu'il publie (sur un profil personnel, LinkedIn ne donne ces chiffres que pour les posts publiés via Zernio ou importés un par un avec leur URL ; sur une page entreprise, pour tous) ; trouver ses meilleurs créneaux. Ne permet pas : la gratuité au-delà de 2 comptes connectés (un profil et une page font 2 comptes ; ensuite environ 6 $ par mois et par compte, à vérifier sur zernio.com au moment de l'inscription). Les statistiques peuvent dépendre de son offre : si Zernio les refuse, dis-le, la programmation reste utilisable.
+2. **À la main (gratuit).** L'agent lui donne le texte final et le visuel ; elle publie ou programme elle-même dans LinkedIn. Pour les résultats, elle colle les chiffres de ses posts, ou relance Apify (étape 3) de temps en temps. Ne permet pas : la programmation automatique ni les impressions.
+
+Avec Zernio :
+1. Elle crée un compte sur zernio.com et y connecte son profil LinkedIn (et sa page si elle veut), puis crée une clé API (*Settings > API keys*) et la colle dans `.env` à la ligne `ZERNIO_API_KEY=` (principe 5). Vérifie avec `grep -c '^ZERNIO_API_KEY=.' .env`.
+2. Lance `python3 scripts/zernio.py comptes` et note l'id du ou des comptes dans `## Outils` de `profile/config.md`.
+3. **Test sans rien publier** : un brouillon, jamais un post programmé. Écris un fichier texte d'une ligne (« Test de mon agent, à supprimer »), lance `python3 scripts/zernio.py programmer --compte <id> --texte <fichier> --brouillon`, montre-lui que le statut est `draft`, puis supprime-le avec son accord (`python3 scripts/zernio.py annuler <post_id> --confirme`). Ne lance jamais `programmer` sans `--brouillon` ni `--quand` pendant l'onboarding.
+4. **Créneaux** : propose le jour et l'heure tirés de son rythme (`Contraintes`, étape 4). Si elle a déjà publié via LinkedIn, `python3 scripts/zernio.py creneaux --compte <id>` donne ceux où ses posts marchent le mieux ; à partir de 2 ou 3 posts par créneau seulement, dis-le.
+5. **Suivi des résultats** : à partir de maintenant, chaque post programmé par l'agent aura ses statistiques. Pour démarrer avec une base, propose d'importer ses 3 à 5 derniers posts publiés à la main, URL par URL (`python3 scripts/zernio.py importer --compte <id> --url <URL du post>`, URL tirées de l'étape 3 si Apify a tourné) ; leurs chiffres arrivent sous 24 h dans `python3 scripts/zernio.py resultats --compte <id>`. Puis propose le bilan mensuel (`bilan-performance`), à installer comme la veille (mêmes voies qu'à l'étape 9, le 1er lundi du mois) ou à demander (« mon bilan »).
+
+Sorties : `Publication`, `Comptes de publication`, `Créneaux de publication` et `Bilan` dans `## Outils` de `profile/config.md`. Coche l'étape 10.
+
+## Étape 11 : fin et premier post
 
 1. Passe `profile/config.md` à `STATUT: CONFIGURÉ` et `Étape en cours : terminé`.
-2. Récap en 5 lignes : positionnement, registres qui marchent, cible, style visuel, routine de veille (jour, heure, voie).
-3. Rappelle les étapes sautées et en base prudente, une ligne chacune, avec la phrase qui les relance : « recalibre ma recette » (3 et 4), « configure ma cible » (5), « configure mon style visuel » (6), « configure mes photos » (7), « configure la génération d'images » (8), « configure ma veille » (9). Une étape refusée se mentionne une seule fois, sans insister, avec sa phrase.
-4. Propose : « On écrit ton premier post ? » à partir d'une des 5 idées de la veille → bascule sur `my-viral-post`.
+2. Récap en 6 lignes : positionnement, registres qui marchent, cible, style visuel, routine de veille (jour, heure, voie), publication (voie, créneau, bilan).
+3. Rappelle les étapes sautées et en base prudente, une ligne chacune, avec la phrase qui les relance : « recalibre ma recette » (3 et 4), « configure ma cible » (5), « configure mon style visuel » (6), « configure mes photos » (7), « configure la génération d'images » (8), « configure ma veille » (9), « configure la publication » (10). Une étape refusée se mentionne une seule fois, sans insister, avec sa phrase.
+4. Propose : « On écrit ton premier post ? » à partir d'une des 5 idées de la veille → bascule sur `my-viral-post`, qui le programmera au créneau choisi une fois validé.
 
-Coche l'étape 10.
+Coche l'étape 11.
 
 ## Garde-fous
 

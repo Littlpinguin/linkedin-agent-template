@@ -1,8 +1,8 @@
 # linkedin-agent (template) : orchestrateur
 
-Agent personnel pour LinkedIn : trouver chaque semaine des idées de sujets, écrire des posts dans TA voix et produire les visuels qui les accompagnent (images IA où tu es en scène, cartes, carrousels). Tout est autonome et reste sous ce dossier.
+Agent personnel pour LinkedIn : trouver chaque semaine des idées de sujets, écrire des posts dans TA voix, produire les visuels qui les accompagnent (images IA où tu es en scène, cartes, carrousels), les programmer, puis lire leurs résultats pour ajuster la stratégie. Tout est autonome et reste sous ce dossier.
 
-Ce dossier est un **template**. Il devient *ton* agent après un onboarding guidé qui récupère tes anciens posts, calibre la doctrine sur ta voix, ta cible et ton style, et installe ta veille.
+Ce dossier est un **template**. Il devient *ton* agent après un onboarding guidé qui récupère tes anciens posts, calibre la doctrine sur ta voix, ta cible et ton style, installe ta veille et branche la publication.
 
 ## ⚡ Ouverture : onboarding, reprise ou mise à niveau
 
@@ -12,11 +12,15 @@ Au début de chaque session, lis `profile/config.md` :
 - **`STATUT: CONFIGURÉ` sans section `## Progression de l'onboarding`, ou avec cette section mais aucune case cochée** (ce que produit un `git pull` sur un agent v1) : l'agent a été configuré avec la première version du template. Propose une fois, en une ligne, la mise à niveau (skill `onboarding`, mode mise à niveau), puis fais ce qu'elle demande.
 - **`STATUT: CONFIGURÉ`** avec la progression complète : fonctionne normalement. Si une étape porte « (sautée) » ou « (base prudente) », propose-la une fois, en une ligne, sans insister. Une étape « (refusée) » ne se repropose jamais.
 
-**Ne produis aucun contenu (texte ou visuel) tant que l'onboarding n'est pas terminé**, hors l'image test et la première veille qu'il déclenche lui-même.
+**Ne produis aucun contenu (texte ou visuel) tant que l'onboarding n'est pas terminé**, hors l'image test, la première veille et le brouillon test qu'il déclenche lui-même.
 
 **Veille en routine cloud.** Si `Voie : routine cloud` dans `profile/veille.md`, fais `git pull` en début de session (avec l'accord de la personne la première fois) pour récupérer les rapports de la semaine.
 
 **Veille non lue.** Si `veille/` contient un rapport plus récent que `Dernière veille lue :` dans `profile/veille.md`, annonce-le en une ligne en début de session (« Ta veille du 12 mars t'attend : 5 idées de sujets. On regarde ? »).
+
+**Bilan du mois.** Si `bilans/` contient un bilan automatique dont les ajustements n'ont pas été validés, annonce-le en une ligne. Si `Bilan` est mensuel et qu'aucun bilan n'existe pour le mois écoulé, propose « mon bilan » une fois.
+
+**Posts programmés.** Si le registre contient des posts `programmé` dont la date est passée, propose en une ligne de vérifier leur statut (`python3 scripts/zernio.py statut <id>`) pour les passer à `publié`.
 
 ## À lire en premier, chaque session (après configuration)
 
@@ -27,7 +31,7 @@ Avant de produire le moindre contenu, lis la doctrine :
 - `profile/cible.md` : pour qui elle écrit, le problème de sa cible, son vocabulaire, l'action attendue.
 - `voice/anti-ai-writing-style.md` : voice DNA complète, liste noire, et la règle fatale des parallélismes négatifs (universel, ne pas modifier).
 - `voice/bibliotheque-hooks-texte.md` et `voice/bibliotheque-hooks-visuels.md` : les hooks attestés, avec leurs niveaux de preuve.
-- `profile/config.md` : les variables (nom, entreprise, couleur d'accent, titre de signature, objectifs) et les outils (génération d'images, mention IA, consentement visage).
+- `profile/config.md` : les variables (nom, entreprise, couleur d'accent, titre de signature, objectifs) et les outils (génération d'images, mention IA, consentement visage, publication).
 - `profile/style-visuel.md` : son style visuel (cadre ou pas, placement des titres, signature ou non). Les skills visuelles le suivent.
 
 Ces fichiers font foi. En cas de doute sur un mot, une couleur, un angle, on y revient. Si l'un d'eux manque ou est encore un gabarit (titre en « [GABARIT À REMPLIR] »), dis-le en une ligne et continue avec ce qui existe.
@@ -41,8 +45,9 @@ Ces fichiers font foi. En cas de doute sur un mot, une couleur, un angle, on y r
 5. **Ne jamais s'approprier une méthode tierce.** Si la personne s'appuie sur un cadre publié, elle l'utilise et le cite, elle ne le possède pas.
 6. **Tout reste sous ce dossier.** Sorties, journaux, assets, scripts : aucun chemin absolu vers un autre repo. Le dossier est autonome.
 7. **Mention IA réglable.** Selon `Mention « Visuel généré par IA »` dans `profile/config.md` (défaut : oui), la mention va en légende des posts dont le visuel est généré par IA. Elle n'est jamais imprimée sur le visuel. Le sidecar `.json` et le registre gardent `ai_disclosure` dans tous les cas. Quel que soit le réglage, un visuel fabriqué pour passer pour un document réel (fausse capture, faux graphique de données, fausse preuve client) ne se publie jamais comme authentique.
-8. **Aucune dépense sans accord.** Génération d'images, Apify, connecteurs à crédits : annoncer le coût probable, attendre un oui.
+8. **Aucune dépense sans accord.** Génération d'images, Apify, connecteurs à crédits, comptes Zernio au-delà des 2 gratuits : annoncer le coût probable, attendre un oui.
 9. **Les secrets ne passent jamais par le chat.** Les clés vont dans `.env`, remplies par la personne. Si une clé est collée dans la conversation, ne la recopie nulle part, conseille de la révoquer et d'en créer une nouvelle.
+10. **Rien ne part sur LinkedIn sans un oui explicite** sur le texte final, le visuel, la date et l'heure. Jamais de publication immédiate : `scripts/zernio.py` programme à une date ou enregistre en brouillon, rien d'autre.
 
 ## Doctrine de marque (personal branding pur)
 
@@ -56,16 +61,17 @@ Ces fichiers font foi. En cas de doute sur un mot, une couleur, un angle, on y r
 
 | Dossier | Rôle |
 |---|---|
-| `skills/` | Les 6 skills de l'agent (voir ci-dessous) |
+| `skills/` | Les 7 skills de l'agent (voir ci-dessous) |
 | `voice/` | Doctrine d'écriture : identité éditoriale, anti-style-IA, bibliothèques de hooks |
 | `profile/` | `config.md` (variables, outils, progression), `recette.md`, `cible.md`, `veille.md`, `style-visuel.md` |
 | `veille/` | Rapports de veille datés + `journal.md` (mémoire anti-redondance). Versionné. |
+| `bilans/` | Relevés de résultats (`performances.csv`) et bilans mensuels. Versionné. |
 | `assets/moi/` | Les 3 photos de la personne + avatar de signature. Exclu de git. |
 | `assets/marque/` | Kit visuel facultatif : `logos/`, `fonts/`, `icons/` (générées) |
 | `assets/references-visuelles/` | 3-4 visuels que la personne aime → base du style visuel |
 | `assets/visuels-generes/` | Images IA brutes → référence de **ton** (se remplit au fil de l'eau) |
 | `assets/visuels-posts/` | Posts finis composés → référence de **composition** |
-| `scripts/` | `scrape-linkedin-posts.py`, `gen-image.py`, `screenshot.py`, `export-carousel-pdf.py`, `journal.py` |
+| `scripts/` | `scrape-linkedin-posts.py`, `gen-image.py`, `screenshot.py`, `export-carousel-pdf.py`, `journal.py`, `zernio.py` |
 | `templates/` | `carousel-linkedin-base.html` (chemins internes au dossier) |
 | `outputs/` | Productions, analyses d'onboarding, journal (`registry.csv`). Exclu de git. |
 
@@ -73,12 +79,13 @@ Ces fichiers font foi. En cas de doute sur un mot, une couleur, un angle, on y r
 
 | Skill | Quand l'utiliser |
 |---|---|
-| `onboarding` | **Première fois**, reprise, ou mise à niveau. 10 étapes : posts, voix, cible, style, photos, images, veille. |
+| `onboarding` | **Première fois**, reprise, ou mise à niveau. 11 étapes : posts, voix, cible, style, photos, images, veille, publication. |
 | `veille-contenu` | Chaque semaine (à la demande ou en routine) : idées de sujets sourcées, dédupliquées contre le journal. Point de départ de la production. |
 | `my-viral-post` | Écrire un post LinkedIn dans sa voix, à partir de sa recette, de ses derniers posts validés et de la veille. |
 | `image-linkedin` | La personne en scène : image détournée, meme. Voie Google (Nano Banana 2.1) ou connecteur (Magnific, Higgsfield). |
 | `carte-linkedin` | Carte ou infographie single-image (HTML → PNG), selon `profile/style-visuel.md`. |
 | `carrousel-linkedin` | Carrousel multipage (HTML → PDF rastérisé). Source des tokens de design. |
+| `bilan-performance` | Chaque mois (à la demande ou en routine) : ce que les posts ont donné, 3 décisions, et la recette, les créneaux et la veille ajustés avec son accord. |
 
 **Lire le `SKILL.md` de la skill concernée avant de produire.** Préférer ces skills aux skills génériques.
 
@@ -89,6 +96,8 @@ Ces fichiers font foi. En cas de doute sur un mot, une couleur, un angle, on y r
 3. **Illustrer** : `image-linkedin` génère la scène → `outputs/images/`.
 4. **Composer** : `carte-linkedin` ou `carrousel-linkedin` compose image + texte (+ signature si le style en porte une), puis exporte (PNG 1080×1350 ou PDF).
 5. **Vérifier** : lire le rendu avant livraison, relire le texte contre `voice/anti-ai-writing-style.md`.
+6. **Programmer** : `my-viral-post` programme le post validé au créneau choisi via `scripts/zernio.py`, après son oui.
+7. **Mesurer** : `bilan-performance` lit les résultats chaque mois et ajuste la recette, les créneaux et la veille.
 
 Association registre → format : opinion / contre-pied → image ou meme ; expert / pédagogique → carrousel ou infographie ; retex / outils → carte + capture.
 
@@ -103,7 +112,7 @@ Tout est tracé sous `outputs/` :
 
 ## Mise en route (sur la machine, pas dans un bac à sable)
 
-- **Clés** : dans `.env` (voir `.env.example`), toutes facultatives : `APIFY_TOKEN` (récupérer les posts), `GOOGLE_AI_API_KEY` (générer des images par Google).
+- **Clés** : dans `.env` (voir `.env.example`), toutes facultatives : `APIFY_TOKEN` (récupérer l'historique des posts à l'onboarding), `GOOGLE_AI_API_KEY` (générer des images par Google), `ZERNIO_API_KEY` (programmer les posts et lire leurs résultats).
 - **Scripts** : `python3 -m pip install requests`.
 - **Composition / export** : `python3 -m pip install playwright && python3 -m playwright install chromium` (une fois). `pdftoppm` (poppler) pour le PDF rastérisé des carrousels.
 - **Environnement restreint** (Cowork ou bac à sable sans réseau) : Apify, la génération par Google et Chromium peuvent échouer. L'onboarding le détecte (`Environnement` dans `profile/config.md`) et passe par les voies qui marchent : export LinkedIn ou copier-coller, connecteur d'images, HTML à ouvrir dans un navigateur.
@@ -111,10 +120,10 @@ Tout est tracé sous `outputs/` :
 ## Sécurité
 
 - **Ne jamais committer `.env`** ni coller de clé en clair. `.gitignore` couvre `.env`, `outputs/`, `assets/moi/*`, `__pycache__`, `.DS_Store`.
-- **Dépôt privé** si l'agent est poussé sur GitHub : `veille/`, `profile/` et `voice/` décrivent la personne.
+- **Dépôt privé** si l'agent est poussé sur GitHub : `veille/`, `bilans/`, `profile/` et `voice/` décrivent la personne.
 - **Logos tiers** (clients, partenaires) : ne jamais les fabriquer par IA ni les scraper. Demander les fichiers officiels.
 - **Visages réels** : seul celui de la personne, avec son consentement. Aucune autre personne réelle sans accord.
 
 ## Activation des skills
 
-Source canonique : `skills/<nom>/SKILL.md`. Les 6 skills sont enregistrées dans `.claude/skills/` par liens symboliques (`.claude/skills/<nom>` → `../../skills/<nom>`), pour qu'elles se déclenchent automatiquement dans Claude Code et Cowork, sans duplication. **Toujours éditer la source dans `skills/`** (le `.claude/skills/` ne fait que pointer dessus).
+Source canonique : `skills/<nom>/SKILL.md`. Les 7 skills sont enregistrées dans `.claude/skills/` par liens symboliques (`.claude/skills/<nom>` → `../../skills/<nom>`), pour qu'elles se déclenchent automatiquement dans Claude Code et Cowork, sans duplication. **Toujours éditer la source dans `skills/`** (le `.claude/skills/` ne fait que pointer dessus).

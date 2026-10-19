@@ -1,6 +1,6 @@
 ---
 name: my-viral-post
-description: Rédige un nouveau post LinkedIn dans la voix de la personne, à partir de ce qui marche déjà pour elle (sa recette gagnante tirée de ses vrais posts, son identité éditoriale, sa cible, ses derniers posts validés, et les idées de sa veille). Déclencher dès qu'elle veut écrire un post : "écris-moi un post LinkedIn", "donne-moi des angles pour un post", "aide-moi à poster cette semaine", "on écrit le premier post", "développe l'idée n°2 de la veille". La skill demande d'abord la matière via l'outil de questions, propose plusieurs angles et accroches, assemble le post complet dans sa voix, indique le visuel à associer, et journalise le post validé.
+description: Rédige un nouveau post LinkedIn dans la voix de la personne, à partir de ce qui marche déjà pour elle (sa recette gagnante tirée de ses vrais posts, son identité éditoriale, sa cible, ses derniers posts validés, et les idées de sa veille). Déclencher dès qu'elle veut écrire un post : "écris-moi un post LinkedIn", "donne-moi des angles pour un post", "aide-moi à poster cette semaine", "on écrit le premier post", "développe l'idée n°2 de la veille". La skill demande d'abord la matière via l'outil de questions, propose plusieurs angles et accroches, assemble le post complet dans sa voix, indique le visuel à associer, journalise le post validé et, si Zernio est branché, le programme au créneau choisi après son accord.
 ---
 
 # my-viral-post : écrire un post dans ta voix
@@ -53,7 +53,25 @@ Chaque post validé est un actif de style : accroches qui marchent, structures �
    - le texte final du post ;
    - une section « Notes de production » : les itérations écartées et pourquoi, les points de vigilance repérés (un tour de phrase proche d'un parallélisme négatif, corrigé), et ce qu'elle a retouché elle-même.
 2. Journalise : `python3 scripts/journal.py --kind post --slug <slug> --output outputs/post-<slug>-<date>/post.md --refs "<sources citées>" --status validé --notes "<résumé en une ligne>"`.
-3. Quand elle annonce l'avoir programmé ou publié, rejoue la commande avec le même slug et `--status programmé` ou `--status publié`. Si le sujet venait de la veille, passe aussi l'angle à `publié` dans `veille/journal.md` : c'est ce qui l'empêche de revenir. Si la veille tourne en routine cloud (`Voie` dans `profile/veille.md`), commite et pousse `veille/journal.md` pour que la routine le voie.
+3. Quand le post est programmé (section suivante) ou qu'elle annonce l'avoir publié elle-même, rejoue la commande avec le même slug et `--status programmé` ou `--status publié`. Si le sujet venait de la veille, passe aussi l'angle à `publié` dans `veille/journal.md` : c'est ce qui l'empêche de revenir. Si la veille tourne en routine cloud (`Voie` dans `profile/veille.md`), commite et pousse `veille/journal.md` pour que la routine le voie.
+
+## Programmer le post (si `Publication : zernio` dans `profile/config.md`)
+
+Une fois le texte **et** le visuel validés, propose de le programmer. Rien ne part sans son oui sur trois choses, récapitulées en une fois : le texte final exact, le fichier du visuel, la date et l'heure.
+
+1. **Le texte** : écris la version à publier, sans en-tête ni notes, dans `outputs/post-<slug>-<date>/post.txt`. Si le visuel est généré par IA et que `Mention « Visuel généré par IA »` vaut `oui`, la mention est dans ce texte. Le lien externe éventuel va en premier commentaire (`--premier-commentaire`), pas dans le corps.
+2. **Le visuel** : le PNG de la carte ou de l'image, ou le PDF exporté du carrousel (un PDF part seul, avec `--titre-document` : le titre affiché sur LinkedIn). Texte seul : pas de `--media`.
+3. **Le créneau** : le prochain créneau de `Créneaux de publication` qui n'a pas déjà un post (`python3 scripts/zernio.py statut` sur les posts `programmé` du registre si besoin), ou la date qu'elle donne.
+4. Lance :
+   ```bash
+   python3 scripts/zernio.py programmer --compte <id> --texte outputs/post-<slug>-<date>/post.txt \
+     --media <visuel> --quand AAAA-MM-JJTHH:MM
+   ```
+   Le script refuse de publier tout de suite et de programmer dans le passé. Montre-lui la sortie : statut `scheduled`, date, fuseau.
+5. Journalise avec `--status programmé` et, dans `--notes`, l'id Zernio et la date (« zernio:<post_id> 2026-10-27 08:00 »). C'est ce que `bilan-performance` relira.
+6. Pour changer d'avis : `python3 scripts/zernio.py annuler <post_id> --confirme` (avec son accord), puis reprogramme. Après la date, `python3 scripts/zernio.py statut <post_id>` donne l'URL du post publié : journalise alors `--status publié` avec l'URL dans `--notes`.
+
+`Publication : manuelle` : donne-lui le texte final et le chemin du visuel, et demande-lui de te dire quand c'est publié.
 
 ## La structure qui marche presque toujours
 
@@ -98,3 +116,4 @@ Ne répète pas une seule recette virale en boucle. Reprends les patterns gagnan
 - `image-linkedin` : la personne en scène, image détournée ou meme.
 - `carte-linkedin` : carte ou infographie single-image.
 - `carrousel-linkedin` : carrousel multipage.
+- `bilan-performance` : ce que les posts publiés ont donné, pour ajuster la recette et la veille.
