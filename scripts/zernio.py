@@ -161,7 +161,7 @@ def local_time(value, tz_name):
 
 def show_post(post):
     when = ""
-    if post.get("scheduledFor"):
+    if post.get("scheduledFor") and post.get("status") != "draft":
         tz_name = post.get("timezone") if post.get("timezone") not in (None, "", "UTC") else DEFAULT_TZ
         when = f", prévu le {local_time(post['scheduledFor'], tz_name)} ({tz_name})"
     print(f"Post {post.get('_id')} : statut {post.get('status')}{when}")
@@ -307,18 +307,29 @@ def cmd_importer(a):
     """Rattache à Zernio un post publié à la main, pour en suivre les statistiques."""
     requests, s = session()
     _, data = call(requests, s, "POST", "/posts/sync-external", json={"accountId": a.compte, "url": a.url})
-    print(f"Post importé ({data.get('postsFound', '?')} post(s) lus sur LinkedIn). "
-          "Ses statistiques apparaîtront dans `resultats` (délai de LinkedIn : jusqu'à 24 h).")
+    if not data.get("found", True):
+        sys.exit("Zernio n'a pas retrouvé ce post sur LinkedIn : vérifie l'URL (lien « Copier le lien vers le post »).")
+    post = data.get("post") or {}
+    m = post.get("analytics") or {}
+    print(f"Post importé : {post.get('platformPostUrl') or a.url}")
+    if m:
+        print("  " + ", ".join(f"{k} {m[k]}" for k in METRICS if m.get(k) not in (None, "", 0)))
+    else:
+        print("  Statistiques pas encore disponibles (délai de LinkedIn : jusqu'à 24 h).")
+    print("  Le format indiqué par Zernio pour un post importé peut être faux (souvent « text ») : "
+          "se fier au registre ou au relevé Apify pour le format.")
 
 
 def cmd_resultats(a):
     """Statistiques des posts suivis par Zernio sur ce compte, en CSV."""
     requests, s = session()
     since = (datetime.date.today() - datetime.timedelta(days=a.jours)).isoformat()
+    # Sans toDate, Zernio borne la période peu après fromDate : on donne les deux bornes.
+    until = (datetime.date.today() + datetime.timedelta(days=1)).isoformat()
     posts, page = [], 1
     while page <= 10:
         _, data = call(requests, s, "GET", "/analytics",
-                       params={"platform": "linkedin", "accountId": a.compte, "fromDate": since,
+                       params={"platform": "linkedin", "accountId": a.compte, "fromDate": since, "toDate": until,
                                "limit": 100, "page": page})
         batch = data.get("posts") or []
         posts += batch

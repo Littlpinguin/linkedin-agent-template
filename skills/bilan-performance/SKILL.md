@@ -27,7 +27,7 @@ Garde chaque relevé : copie `bilans/performances.csv` en `bilans/AAAA-MM-JJ-per
 
 ## Analyser (dans cet ordre)
 
-1. **Relier chaque post à sa fiche** : rapproche chaque ligne du relevé d'un slug du registre (URL ou URN dans `notes`, sinon date et début du texte). Un post publié hors agent reste dans l'analyse, marqué « hors agent ».
+1. **Relier chaque post à sa fiche** : rapproche chaque ligne du relevé d'un slug du registre (URL ou URN dans `notes`, sinon date et début du texte). Un post publié hors agent reste dans l'analyse, marqué « hors agent ». Pour un post importé (`origine` = hors Zernio), Zernio indique souvent un format « text » et un texte vide : prends le format et l'accroche dans le registre ou dans le relevé Apify (`outputs/onboarding/posts.csv`).
 2. **La mesure** : par défaut, le taux d'engagement et les impressions. Si l'objectif est `leads`, regarde d'abord les commentaires et les envois ; si `autorité`, les enregistrements et partages ; si `reach`, les impressions et la portée.
 3. **Contre la recette** : médiane du mois contre la médiane de `profile/recette.md`, et chaque post en multiple de la médiane du mois.
 4. **Ce qui a marché, par dimension** : registre, format (texte, image, carrousel, vidéo, lien), famille d'accroche, jour et heure, sujet venu de la veille ou de sa matière à elle, longueur. Donne toujours le nombre de posts derrière chaque conclusion : sous 3 posts, c'est une piste, pas une règle.
