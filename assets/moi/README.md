@@ -1,14 +1,28 @@
-# assets/moi/ — ton visage (Identity Lock) + ta signature
+# assets/moi/ : ton visage et ta signature
 
-Ce dossier sert deux choses : fiabiliser ton visage dans les images générées par IA, et fournir ta photo de signature pour les cartes et carrousels.
+Ce dossier sert à deux choses : te mettre en scène dans les images générées par IA avec ton vrai visage, reconnaissable, et fournir ta photo de signature pour les cartes et carrousels.
 
-## Quoi déposer
+## Les 3 photos (noms fixes)
 
-- **3 à 5 photos de ton visage**, nettes, bien éclairées, sous des angles variés (face, léger profil), expression neutre ou souriante. Plus la référence est bonne, plus l'« Identity Lock » de la génération IA tient (ton vrai visage, pas un sosie).
-  - Formats : `.jpeg` / `.png`. Nomme-les simplement, ex. `visage-1.jpeg`, `visage-2.jpeg`.
-  - Évite : lunettes de soleil, forte ombre, visage de profil complet, photo de groupe.
-- **1 avatar de signature** carré, recadré sur le visage : `avatar-signature.jpg`. Utilisé en bas des cartes et carrousels (rond 112 px). C'est ta photo « pro » de profil LinkedIn.
+| Fichier | Ce qu'on voit | Sert à |
+|---|---|---|
+| `face.jpg` | Toi de face, regard caméra | Scènes où tu fais face au lecteur, avatar de signature |
+| `nez-a-gauche.jpg` | Toi de trois quarts ou de profil, le nez pointé vers le bord gauche de la photo | Scènes où tu regardes vers la gauche du cadre |
+| `nez-a-droite.jpg` | Toi de trois quarts ou de profil, le nez pointé vers le bord droit de la photo | Scènes où tu regardes vers la droite du cadre |
 
-## Confidentialité
+Le nom dit ce qu'on voit **sur la photo**, pas le côté de ton visage : regarde l'image et demande-toi de quel côté pointe ton nez.
 
-Seul ton visage (avec ton consentement) doit apparaître ici. Aucune autre personne réelle sans accord. Ces fichiers ne sont pas committés si tu ajoutes ce dossier au `.gitignore` (à toi de voir selon ton dépôt).
+`.jpeg` et `.png` sont acceptés. Les photos d'iPhone en `.heic` aussi : l'agent les convertit en `.jpg`. L'agent choisit la photo dont l'orientation colle à la scène : c'est ce qui donne un visage ressemblant.
+
+**Ce qui marche** : une seule personne, visage net et assez grand (au moins un tiers de la hauteur de la photo), lumière du jour de face ou de côté, expression naturelle, fond simple. Une photo de téléphone suffit.
+
+**Ce que l'agent te redemandera** : flou, contre-jour ou ombre forte sur le visage, lunettes de soleil, casquette qui cache les yeux, plusieurs personnes, visage coupé, filtre beauté appuyé.
+
+**Avatar de signature** (facultatif) : `avatar-signature.jpg`, carré, recadré sur le visage. Utilisé en bas des cartes et carrousels si ton style visuel prévoit une signature. Sans lui, l'agent recadre `face.jpg`.
+
+**Anciens noms** : si tu as configuré une première version du template, tes `visage-1.jpeg`, `visage-2.jpeg`… restent utilisables. L'agent te proposera de les renommer.
+
+## Consentement et confidentialité
+
+- Seul ton visage, avec ton accord, va ici. Aucune autre personne réelle sans la sienne.
+- Ce dossier est exclu de git (voir `.gitignore`) : tes photos ne partent jamais dans un dépôt, même si tu pousses ton agent sur GitHub. Garde-en une copie ailleurs.

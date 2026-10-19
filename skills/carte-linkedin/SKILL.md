@@ -23,7 +23,11 @@ Le template **n'impose aucun gabarit**. La signature visuelle de la personne vie
 - Si son style ne porte pas de signature → n'en ajoute pas.
 - Si `profile/style-visuel.md` est encore un gabarit (style non défini) → propose 2-3 options de composition à la personne et demande laquelle elle préfère, plutôt que d'imposer.
 
-La personne reste le sujet (son visage, via `image-linkedin` ou une photo), sauf si son style privilégie autre chose (typo seule, capture, illustration).
+La personne reste le sujet (son visage, via `image-linkedin` ou une de ses photos de `assets/moi/` : `face`, `nez-a-gauche`, `nez-a-droite` en `.jpg`, `.jpeg` ou `.png`, ou les anciens `visage-*`), sauf si son style privilégie autre chose (typo seule, capture, illustration). Si `Génération d'images` vaut `aucune` dans `profile/config.md`, compose avec ses vraies photos.
+
+## Environnement restreint
+
+Si `Environnement : cowork` dans `profile/config.md`, ou si Chromium manque, ne lance pas `screenshot.py`. Livre `index.html` et explique comment obtenir le PNG : ouvrir le fichier dans Chrome, outils de développement, mode appareil en 1080×1350, menu « Capture d'écran de taille réelle ».
 
 ## Méthode : HTML → screenshot Playwright (jamais Pillow)
 
@@ -63,9 +67,13 @@ Pillow ne charge pas les fonts woff2. Toujours composer en **HTML/CSS** puis scr
 
 Cohérent avec `profile/style-visuel.md`, titre lisible, **corps sous 44 px ou légende sous 32 px corrigés** (lisibilité mobile), pas de collision, accent unique. Itérer en éditant le **HTML/script**, pas en repartant de zéro.
 
-## Disclosure IA
+## Rattraper un sujet mal placé
 
-Composition HTML d'assets existants → pas de mention. Si l'image de fond est une scène générée IA (via `image-linkedin`) → disclosure dans la légende du post.
+Si la scène générée centre la personne alors que le texte a besoin d'un côté libre, ne régénère pas : agrandis l'image à 110-120 %, décale-la, fonds le bord ainsi créé par un calque de dégradé, et donne à la carte un fond assorti à la couleur moyenne du bord de l'image. Le raccord disparaît.
+
+## Mention IA
+
+Composition HTML d'assets existants → pas de mention. Si l'image de fond est une scène générée par IA (via `image-linkedin`) → selon `Mention « Visuel généré par IA »` de `profile/config.md` : `oui`, rappeler la mention en légende du post ; `non`, rien. La traçabilité reste dans le registre.
 
 ## Skills liées
 
